@@ -2,14 +2,14 @@
 
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { Github, Linkedin, Twitter, Mail, Rocket } from 'lucide-react'
+import { Github, Linkedin, Twitter, Mail, Rocket, Facebook } from 'lucide-react'
 import { CurveDivider } from '@/components/ui/dividers'
 
 const socialLinks = [
-    { href: 'https://github.com', icon: Github, label: 'GitHub' },
-    { href: 'https://linkedin.com', icon: Linkedin, label: 'LinkedIn' },
-    { href: 'https://twitter.com', icon: Twitter, label: 'Twitter' },
-    { href: 'mailto:contact@example.com', icon: Mail, label: 'Email' },
+    { href: 'https://github.com/emmanyouwell', icon: Github, label: 'GitHub' },
+    { href: 'https://www.linkedin.com/in/emmanuel-mingala/', icon: Linkedin, label: 'LinkedIn' },
+    { href: 'https://www.facebook.com/emmanueellll', icon: Facebook, label: 'Facebook' },
+    { href: 'mailto:emingala02@gmail.com', icon: Mail, label: 'Email' },
 ]
 
 const footerLinks = [
@@ -83,8 +83,8 @@ export function Footer() {
                         <h4 className="text-lg font-semibold">Contact</h4>
                         <ul className="space-y-4">
                             <li>
-                                <a href="mailto:hello@example.com" className="text-muted-foreground hover:text-primary transition-colors">
-                                    hello@example.com
+                                <a href="mailto:emingala02@gmail.com" className="text-muted-foreground hover:text-primary transition-colors">
+                                    emingala02@gmail.com
                                 </a>
                             </li>
                         </ul>

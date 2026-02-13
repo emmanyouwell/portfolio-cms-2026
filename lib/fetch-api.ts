@@ -1,7 +1,7 @@
 import qs from "qs";
 interface FetchAPIOptions {
   headers?: Record<string, string>;
-  params?: Record<string, object>;
+  params?: Record<string, unknown>;
   revalidate?: number; // Optional override for revalidation time
 }
 
