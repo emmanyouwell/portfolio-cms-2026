@@ -7,6 +7,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { BackgroundIllustrations } from "@/components/ui/BackgroundIllustrations";
 import { Toaster } from "@/components/ui/sonner";
 import Script from "next/script";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -81,6 +82,7 @@ export default function RootLayout({
           <Footer />
           <Toaster />
         </ThemeProvider>
+        <SpeedInsights />
       </body>
     </html>
   );
