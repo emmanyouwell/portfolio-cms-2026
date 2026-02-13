@@ -6,6 +6,7 @@ import { BlogSection } from "@/components/sections/Blog";
 import { Testimonials } from "@/components/sections/Testimonials";
 
 import { fetchAPI } from "@/lib/fetch-api";
+import { Contact } from "@/components/sections/Contact";
 
 export default async function Home() {
   const baseQuery = {
@@ -47,6 +48,7 @@ export default async function Home() {
       <Certificates certificates={certificates.data} />
       <BlogSection blogs={blogs.data} />
       <Testimonials testimonials={testimonials.data} />
+      <Contact />
     </main>
   );
 }

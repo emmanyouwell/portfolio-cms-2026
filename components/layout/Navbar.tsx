@@ -7,6 +7,7 @@ import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { slideDown } from '@/lib/motion-variants'
 import { ThemeToggle } from '@/components/ui/theme-toggle'
+import { trackEvent } from '@/lib/gtag'
 
 const navLinks = [
     { href: '#projects', label: 'Projects' },
@@ -54,6 +55,11 @@ export function Navbar() {
                         <Link
                             key={link.href}
                             href={link.href}
+                            onClick={() => trackEvent("navigation_click", {
+                                link_name: link.label,
+                                link_path: link.href,
+                                location: "navbar_desktop",
+                            })}
                             className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
                         >
                             {link.label}

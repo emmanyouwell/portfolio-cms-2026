@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button'
 import { Stats } from '@/types/cms'
 import { WaveDivider } from '@/components/ui/dividers'
 import { TypewriterEffect } from "@/components/ui/TypewriterEffect";
+import { trackEvent } from '@/lib/gtag'
 
 
 interface HeroProps {
@@ -170,13 +171,19 @@ export function Hero({ stats }: HeroProps) {
 
                         <div className="flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start">
                             <Button size="lg" className="rounded-full px-8 h-12 text-base shadow-lg shadow-primary/25 hover:shadow-primary/40 transition-shadow" asChild>
-                                <Link href="#projects">
-                                    View Mission Control
+                                <Link href="#projects" onClick={() => trackEvent('button_click', {
+                                    button_name: 'project_cta',
+                                    location: 'hero_section'
+                                })}>
+                                    View Projects
                                     <ArrowRight className="ml-2 h-4 w-4" />
                                 </Link>
                             </Button>
                             <Button size="lg" variant="ghost" className="rounded-full px-8 h-12 text-base hover:bg-primary/5" asChild>
-                                <Link href="#contact">Initiate Contact</Link>
+                                <Link href="#contact" onClick={() => trackEvent('button_click', {
+                                    button_name: 'contact_cta',
+                                    location: 'hero_section'
+                                })}>Initiate Contact</Link>
                             </Button>
                         </div>
                     </motion.div>

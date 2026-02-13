@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { Github, Linkedin, Twitter, Mail, Rocket, Facebook } from 'lucide-react'
 import { CurveDivider } from '@/components/ui/dividers'
+import { trackEvent } from '@/lib/gtag'
 
 const socialLinks = [
     { href: 'https://github.com/emmanyouwell', icon: Github, label: 'GitHub' },
@@ -49,6 +50,10 @@ export function Footer() {
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         aria-label={social.label}
+                                        onClick={() => trackEvent('outbound_link', {
+                                            link_name: social.label,
+                                            location: "footer"
+                                        })}
                                         className="p-3 rounded-full bg-background border border-border text-muted-foreground transition-all hover:text-primary hover:border-primary hover:shadow-lg hover:shadow-primary/20"
                                         whileHover={{ y: -4 }}
                                         whileTap={{ scale: 0.9 }}
@@ -68,6 +73,11 @@ export function Footer() {
                                 <li key={link.href}>
                                     <Link
                                         href={link.href}
+                                        onClick={() => trackEvent("footer_link_click", {
+                                            link_name: link.label,
+                                            link_path: link.href,
+                                            location: "footer",
+                                        })}
                                         className="text-muted-foreground hover:text-primary transition-colors flex items-center group"
                                     >
                                         <span className="w-1.5 h-1.5 rounded-full bg-primary/40 mr-2 group-hover:bg-primary transition-colors" />
@@ -83,7 +93,10 @@ export function Footer() {
                         <h4 className="text-lg font-semibold">Contact</h4>
                         <ul className="space-y-4">
                             <li>
-                                <a href="mailto:emingala02@gmail.com" className="text-muted-foreground hover:text-primary transition-colors">
+                                <a href="mailto:emingala02@gmail.com" className="text-muted-foreground hover:text-primary transition-colors" onClick={() => trackEvent('outbound_click', {
+                                    link_name: 'email',
+                                    location: 'footer'
+                                })}>
                                     emingala02@gmail.com
                                 </a>
                             </li>
