@@ -19,7 +19,7 @@ export function CertificateCard({ certificate }: CertificateCardProps) {
                 {/* Certificate Image Placeholder */}
                 <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-primary/20 to-primary/5">
                     {certificate.image.url ? (
-                        <Image src={certificate.image.url} alt={certificate.title} fill className="object-cover" />
+                        <Image src={certificate.image.url} alt={certificate.title} fill className="object-cover" loading="lazy" />
                     ) :
                         (<p className="text-center text-sm text-muted-foreground">
                             Certificate

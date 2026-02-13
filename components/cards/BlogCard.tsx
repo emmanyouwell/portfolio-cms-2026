@@ -36,7 +36,7 @@ export function BlogCard({ blog }: BlogCardProps) {
                                 transition={{ duration: 0.5 }}
                             >
                                 {blog.image.url ? (
-                                    <Image src={blog.image.url} alt={blog.title} fill className="object-cover" />
+                                    <Image src={blog.image.url} alt={blog.title} fill className="object-cover" loading="lazy" />
                                 ) : (
                                     <p className="text-center text-sm text-muted-foreground/70">
                                         <span className="block mb-2 text-2xl opacity-20">✍️</span>

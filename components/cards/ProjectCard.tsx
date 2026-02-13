@@ -28,7 +28,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
                     {/* Project Image Placeholder */}
                     <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-primary/20 via-primary/5 to-transparent">
                         {project.image.url ? (
-                            <Image src={project.image.url} alt={project.title} fill className="object-cover" />
+                            <Image src={project.image.url} alt={project.title} fill className="object-cover" loading="lazy" />
                         ) : (
                             <p className="text-center text-sm text-muted-foreground/80 font-medium">
                                 Project Preview

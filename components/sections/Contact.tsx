@@ -53,8 +53,6 @@ export function Contact() {
                 body: JSON.stringify(values),
             })
 
-            const data = await response.json();
-
             if (!response.ok) {
                 const errorData = await response.json().catch(() => null);
                 throw new Error(errorData?.error || "Something went wrong");

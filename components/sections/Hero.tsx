@@ -9,6 +9,7 @@ import { Stats } from '@/types/cms'
 import { WaveDivider } from '@/components/ui/dividers'
 import { TypewriterEffect } from "@/components/ui/TypewriterEffect";
 import { trackEvent } from '@/lib/gtag'
+import Image from 'next/image'
 
 
 interface HeroProps {
@@ -44,10 +45,11 @@ export function Hero({ stats }: HeroProps) {
                                 className="absolute inset-4 border border-dashed border-primary/30 rounded-full"
                             />
                             <div className="relative z-20 w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-background/20 shadow-2xl">
-                                <NextImage
+                                <Image
                                     src="/images/professional/toga.jpg"
                                     alt="Emmanuel Mingala"
-                                    fill
+                                    width={310}
+                                    height={310}
                                     className="object-cover"
                                     priority
                                 />

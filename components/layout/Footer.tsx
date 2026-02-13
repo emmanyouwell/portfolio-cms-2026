@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { Github, Linkedin, Twitter, Mail, Rocket, Facebook } from 'lucide-react'
+import { Github, Linkedin, Mail, Rocket, Facebook } from 'lucide-react'
 import { CurveDivider } from '@/components/ui/dividers'
 import { trackEvent } from '@/lib/gtag'
 
