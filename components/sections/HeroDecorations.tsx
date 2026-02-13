@@ -71,8 +71,8 @@ export default function HeroDecorations({ stats }: HeroDecorationsProps) {
                     }}
                     className="relative lg:absolute lg:-top-12 lg:-left-4 p-3 bg-card/80 backdrop-blur-md rounded-2xl border border-border shadow-xl flex items-center gap-3 z-10 h-full lg:h-auto"
                 >
-                    <div className="p-2 bg-primary/10 rounded-full shrink-0">
-                        <Clock className="w-5 h-5 text-primary" />
+                    <div className="p-2 bg-purple-500/10 rounded-full shrink-0">
+                        <Clock className="w-5 h-5 text-purple-500" />
                     </div>
                     <div>
                         <div className="text-lg font-bold">{stats.experience}</div>
@@ -91,8 +91,8 @@ export default function HeroDecorations({ stats }: HeroDecorationsProps) {
                     }}
                     className="relative lg:absolute lg:top-1/2 lg:-right-16 p-3 bg-card/80 backdrop-blur-md rounded-2xl border border-border shadow-xl flex items-center gap-3 z-30 h-full lg:h-auto"
                 >
-                    <div className="p-2 bg-accent/10 rounded-full shrink-0">
-                        <Award className="w-5 h-5 text-accent" />
+                    <div className="p-2 bg-primary/10 rounded-full shrink-0">
+                        <Award className="w-5 h-5 text-primary" />
                     </div>
                     <div>
                         <div className="text-lg font-bold">{stats.certificates}</div>
