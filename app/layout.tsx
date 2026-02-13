@@ -67,11 +67,6 @@ export default function RootLayout({
           gtag('js', new Date());
           gtag('config', 'G-THS71QL16S');`}
         </Script>
-        <link
-          rel='stylesheet'
-          type='text/css'
-          href='https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css'
-        />
       </head>
       <body className={`${inter.className} antialiased`}>
         <ThemeProvider

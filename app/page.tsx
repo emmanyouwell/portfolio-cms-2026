@@ -27,12 +27,13 @@ export default async function Home() {
       }
     }
   }
-  const projects = await fetchAPI('/projects', baseQuery);
-  const certificates = await fetchAPI('/certificates', certificateQuery);
-  const skills = await fetchAPI('/skills', baseQuery)
-  const testimonials = await fetchAPI('/testimonials', baseQuery);
-  const blogs = await fetchAPI('/blogs', baseQuery);
-  console.log(blogs.data);
+  const [projects, certificates, skills, testimonials, blogs] = await Promise.all([
+    fetchAPI('/projects', baseQuery),
+    fetchAPI('/certificates', certificateQuery),
+    fetchAPI('/skills', baseQuery),
+    fetchAPI('/testimonials', baseQuery),
+    fetchAPI('/blogs', baseQuery)
+  ])
   const statsProps = {
     projects: projects.data.length,
     blogs: blogs.data.length,
