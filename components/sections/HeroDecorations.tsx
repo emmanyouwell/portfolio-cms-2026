@@ -28,7 +28,7 @@ export default function HeroDecorations({ stats }: HeroDecorationsProps) {
                 <div
                     className="relative lg:absolute lg:-top-10 lg:-right-4 z-20 hidden lg:block animate-fade-in-up delay-200"
                 >
-                    <div className="p-4 bg-card/80 backdrop-blur-md rounded-2xl border border-border shadow-xl animate-float">
+                    <div className="p-4 bg-card/80 backdrop-blur-md rounded-2xl border border-border shadow-xl lg:animate-float">
                         <Code2 className="w-8 h-8 text-accent" />
                     </div>
                 </div>
@@ -37,7 +37,7 @@ export default function HeroDecorations({ stats }: HeroDecorationsProps) {
                 <div
                     className="relative lg:absolute lg:-bottom-8 lg:-left-8 z-20 h-full lg:h-auto animate-fade-in-up delay-400"
                 >
-                    <div className="p-3 bg-card/80 backdrop-blur-md rounded-2xl border border-border shadow-xl flex items-center gap-3 h-full lg:h-auto animate-float delay-500">
+                    <div className="p-3 bg-card/80 backdrop-blur-md rounded-2xl border border-border shadow-xl flex items-center gap-3 h-full lg:h-auto lg:animate-float delay-500">
                         <div className="p-2 bg-emerald-500/10 rounded-full shrink-0">
                             <Rocket className="w-5 h-5 text-emerald-500" />
                         </div>
@@ -52,7 +52,7 @@ export default function HeroDecorations({ stats }: HeroDecorationsProps) {
                 <div
                     className="relative lg:absolute lg:-top-12 lg:-left-4 z-10 h-full lg:h-auto animate-fade-in-up delay-600"
                 >
-                    <div className="p-3 bg-card/80 backdrop-blur-md rounded-2xl border border-border shadow-xl flex items-center gap-3 h-full lg:h-auto animate-float delay-1000">
+                    <div className="p-3 bg-card/80 backdrop-blur-md rounded-2xl border border-border shadow-xl flex items-center gap-3 h-full lg:h-auto lg:animate-float delay-1000">
                         <div className="p-2 bg-purple-500/10 rounded-full shrink-0">
                             <Clock className="w-5 h-5 text-purple-500" />
                         </div>
@@ -67,7 +67,7 @@ export default function HeroDecorations({ stats }: HeroDecorationsProps) {
                 <div
                     className="relative lg:absolute lg:top-1/2 lg:-right-16 z-30 h-full lg:h-auto animate-fade-in-up delay-800"
                 >
-                    <div className="p-3 bg-card/80 backdrop-blur-md rounded-2xl border border-border shadow-xl flex items-center gap-3 h-full lg:h-auto animate-float delay-1500">
+                    <div className="p-3 bg-card/80 backdrop-blur-md rounded-2xl border border-border shadow-xl flex items-center gap-3 h-full lg:h-auto lg:animate-float delay-1500">
                         <div className="p-2 bg-primary/10 rounded-full shrink-0">
                             <Award className="w-5 h-5 text-primary" />
                         </div>
@@ -82,7 +82,7 @@ export default function HeroDecorations({ stats }: HeroDecorationsProps) {
                 <div
                     className="relative lg:absolute lg:-bottom-4 lg:-right-8 z-10 h-full lg:h-auto animate-fade-in-up delay-1000"
                 >
-                    <div className="p-3 bg-card/80 backdrop-blur-md rounded-2xl border border-border shadow-xl flex items-center gap-3 h-full lg:h-auto animate-float delay-2000">
+                    <div className="p-3 bg-card/80 backdrop-blur-md rounded-2xl border border-border shadow-xl flex items-center gap-3 h-full lg:h-auto lg:animate-float delay-2000">
                         <div className="p-2 bg-purple-500/10 rounded-full shrink-0">
                             <BookOpen className="w-5 h-5 text-purple-500" />
                         </div>
