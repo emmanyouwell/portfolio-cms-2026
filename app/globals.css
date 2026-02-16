@@ -201,13 +201,29 @@ html {
 .delay-1500 { animation-delay: 1500ms; }
 .delay-2000 { animation-delay: 2000ms; }
 
-/* Ensure initial opacity 0 for entry animations */
-.animate-fade-in-up,
-.animate-fade-in-left {
-  opacity: 0;
-}
-
 .mask-linear-gradient {
   mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
   -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+@keyframes fade-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@utility animate-fade-in-right {
+  animation: fade-in-right 0.8s ease-out forwards;
+}
+
+/* Ensure initial opacity 0 for entry animations */
+.animate-fade-in-up,
+.animate-fade-in-left,
+.animate-fade-in-right {
+  opacity: 0;
 }

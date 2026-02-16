@@ -1,11 +1,9 @@
 'use client'
 
-import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { ExternalLink, Github, ArrowUpRight } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Project } from '@/types/cms'
-import { cardHover } from '@/lib/motion-variants'
 import Image from 'next/image'
 
 interface ProjectCardProps {
@@ -14,13 +12,8 @@ interface ProjectCardProps {
 
 export function ProjectCard({ project }: ProjectCardProps) {
     return (
-        <motion.div
-            initial="rest"
-            whileHover="hover"
-            variants={cardHover}
-            className="group h-full"
-        >
-            <div className="relative h-full overflow-hidden rounded-[2rem] bg-card/60 border border-white/10 backdrop-blur-md shadow-xl transition-all hover:shadow-2xl hover:bg-card/80">
+        <div className="group h-full">
+            <div className="relative h-full overflow-hidden rounded-[2rem] bg-card/60 border border-white/10 backdrop-blur-md shadow-xl transition-all duration-300 hover:shadow-2xl hover:bg-card/80 hover:-translate-y-2">
                 {/* Decorative blob behind content */}
                 <div className="absolute -right-20 -top-20 h-40 w-40 rounded-full bg-primary/10 blur-3xl transition-opacity group-hover:opacity-75" />
 
@@ -113,6 +106,6 @@ export function ProjectCard({ project }: ProjectCardProps) {
                     )}
                 </div>
             </div>
-        </motion.div>
+        </div>
     )
 }
