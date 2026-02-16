@@ -1,6 +1,6 @@
 'use client'
 
-import { motion } from 'framer-motion'
+
 import { Rocket, Code2, Award, BookOpen, Clock } from 'lucide-react'
 import { Stats } from '@/types/cms'
 import { useMediaQuery } from '@/hooks/use-media-query'
@@ -16,10 +16,8 @@ export default function HeroDecorations({ stats }: HeroDecorationsProps) {
         <>
             {/* Desktop Rotating Emblem (Hidden on Mobile) */}
             {!isMobile && (
-                <motion.div
-                    animate={{ rotate: 360 }}
-                    transition={{ duration: 50, repeat: Infinity, ease: "linear" }}
-                    className="absolute inset-4 border border-dashed border-primary/30 rounded-full"
+                <div
+                    className="absolute inset-4 border border-dashed border-primary/30 rounded-full animate-spin-slow"
                 />
             )}
 
@@ -27,98 +25,73 @@ export default function HeroDecorations({ stats }: HeroDecorationsProps) {
             <div className="grid grid-cols-2 gap-4 w-full lg:contents">
 
                 {/* Code Icon - Floating Element */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={isMobile ? { opacity: 1, y: 0 } : { opacity: 1, y: [0, -15, 0] }}
-                    transition={{
-                        opacity: { duration: 0.5, delay: 0.2 },
-                        y: { duration: 0.5, delay: 0.2 }, // Entry transition
-                        default: { duration: 4, repeat: Infinity, ease: "easeInOut", delay: 0 } // Float transition
-                    }}
-                    className="relative lg:absolute lg:-top-10 lg:-right-4 p-4 bg-card/80 backdrop-blur-md rounded-2xl border border-border shadow-xl z-20 hidden lg:block"
+                <div
+                    className="relative lg:absolute lg:-top-10 lg:-right-4 z-20 hidden lg:block animate-fade-in-up delay-200"
                 >
-                    <Code2 className="w-8 h-8 text-accent" />
-                </motion.div>
+                    <div className="p-4 bg-card/80 backdrop-blur-md rounded-2xl border border-border shadow-xl animate-float">
+                        <Code2 className="w-8 h-8 text-accent" />
+                    </div>
+                </div>
 
                 {/* Project Launched */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={isMobile ? { opacity: 1, y: 0 } : { opacity: 1, y: [0, -15, 0] }}
-                    transition={{
-                        opacity: { duration: 0.5, delay: 0.4 },
-                        y: { duration: 0.5, delay: 0.4 },
-                        default: { duration: 4, repeat: Infinity, ease: "easeInOut", delay: 0.5 }
-                    }}
-                    className="relative lg:absolute lg:-bottom-8 lg:-left-8 p-3 bg-card/80 backdrop-blur-md rounded-2xl border border-border shadow-xl flex items-center gap-3 z-20 h-full lg:h-auto"
+                <div
+                    className="relative lg:absolute lg:-bottom-8 lg:-left-8 z-20 h-full lg:h-auto animate-fade-in-up delay-400"
                 >
-                    <div className="p-2 bg-emerald-500/10 rounded-full shrink-0">
-                        <Rocket className="w-5 h-5 text-emerald-500" />
+                    <div className="p-3 bg-card/80 backdrop-blur-md rounded-2xl border border-border shadow-xl flex items-center gap-3 h-full lg:h-auto animate-float delay-500">
+                        <div className="p-2 bg-emerald-500/10 rounded-full shrink-0">
+                            <Rocket className="w-5 h-5 text-emerald-500" />
+                        </div>
+                        <div>
+                            <div className="text-lg font-bold">{stats.projects}</div>
+                            <div className="text-[10px] text-muted-foreground uppercase tracking-wider">Projects Launched</div>
+                        </div>
                     </div>
-                    <div>
-                        <div className="text-lg font-bold">{stats.projects}</div>
-                        <div className="text-[10px] text-muted-foreground uppercase tracking-wider">Projects Launched</div>
-                    </div>
-                </motion.div>
+                </div>
 
                 {/* Experience Card - Top Left */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={isMobile ? { opacity: 1, y: 0 } : { opacity: 1, y: [0, -15, 0] }}
-                    transition={{
-                        opacity: { duration: 0.5, delay: 0.6 },
-                        y: { duration: 0.5, delay: 0.6 },
-                        default: { duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1 }
-                    }}
-                    className="relative lg:absolute lg:-top-12 lg:-left-4 p-3 bg-card/80 backdrop-blur-md rounded-2xl border border-border shadow-xl flex items-center gap-3 z-10 h-full lg:h-auto"
+                <div
+                    className="relative lg:absolute lg:-top-12 lg:-left-4 z-10 h-full lg:h-auto animate-fade-in-up delay-600"
                 >
-                    <div className="p-2 bg-purple-500/10 rounded-full shrink-0">
-                        <Clock className="w-5 h-5 text-purple-500" />
+                    <div className="p-3 bg-card/80 backdrop-blur-md rounded-2xl border border-border shadow-xl flex items-center gap-3 h-full lg:h-auto animate-float delay-1000">
+                        <div className="p-2 bg-purple-500/10 rounded-full shrink-0">
+                            <Clock className="w-5 h-5 text-purple-500" />
+                        </div>
+                        <div>
+                            <div className="text-lg font-bold">{stats.experience}</div>
+                            <div className="text-[10px] text-muted-foreground uppercase tracking-wider">Experience</div>
+                        </div>
                     </div>
-                    <div>
-                        <div className="text-lg font-bold">{stats.experience}</div>
-                        <div className="text-[10px] text-muted-foreground uppercase tracking-wider">Experience</div>
-                    </div>
-                </motion.div>
+                </div>
 
                 {/* Certificates Card - Right Middle */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={isMobile ? { opacity: 1, y: 0 } : { opacity: 1, y: [0, -15, 0] }}
-                    transition={{
-                        opacity: { duration: 0.5, delay: 0.8 },
-                        y: { duration: 0.5, delay: 0.8 },
-                        default: { duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1.5 }
-                    }}
-                    className="relative lg:absolute lg:top-1/2 lg:-right-16 p-3 bg-card/80 backdrop-blur-md rounded-2xl border border-border shadow-xl flex items-center gap-3 z-30 h-full lg:h-auto"
+                <div
+                    className="relative lg:absolute lg:top-1/2 lg:-right-16 z-30 h-full lg:h-auto animate-fade-in-up delay-800"
                 >
-                    <div className="p-2 bg-primary/10 rounded-full shrink-0">
-                        <Award className="w-5 h-5 text-primary" />
+                    <div className="p-3 bg-card/80 backdrop-blur-md rounded-2xl border border-border shadow-xl flex items-center gap-3 h-full lg:h-auto animate-float delay-1500">
+                        <div className="p-2 bg-primary/10 rounded-full shrink-0">
+                            <Award className="w-5 h-5 text-primary" />
+                        </div>
+                        <div>
+                            <div className="text-lg font-bold">{stats.certificates}</div>
+                            <div className="text-[10px] text-muted-foreground uppercase tracking-wider">Certifications</div>
+                        </div>
                     </div>
-                    <div>
-                        <div className="text-lg font-bold">{stats.certificates}</div>
-                        <div className="text-[10px] text-muted-foreground uppercase tracking-wider">Certifications</div>
-                    </div>
-                </motion.div>
+                </div>
 
                 {/* Blogs Card - Bottom Right */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={isMobile ? { opacity: 1, y: 0 } : { opacity: 1, y: [0, -15, 0] }}
-                    transition={{
-                        opacity: { duration: 0.5, delay: 1.0 },
-                        y: { duration: 0.5, delay: 1.0 },
-                        default: { duration: 4, repeat: Infinity, ease: "easeInOut", delay: 2 }
-                    }}
-                    className="relative lg:absolute lg:-bottom-4 lg:-right-8 p-3 bg-card/80 backdrop-blur-md rounded-2xl border border-border shadow-xl flex items-center gap-3 z-10 h-full lg:h-auto"
+                <div
+                    className="relative lg:absolute lg:-bottom-4 lg:-right-8 z-10 h-full lg:h-auto animate-fade-in-up delay-1000"
                 >
-                    <div className="p-2 bg-purple-500/10 rounded-full shrink-0">
-                        <BookOpen className="w-5 h-5 text-purple-500" />
+                    <div className="p-3 bg-card/80 backdrop-blur-md rounded-2xl border border-border shadow-xl flex items-center gap-3 h-full lg:h-auto animate-float delay-2000">
+                        <div className="p-2 bg-purple-500/10 rounded-full shrink-0">
+                            <BookOpen className="w-5 h-5 text-purple-500" />
+                        </div>
+                        <div>
+                            <div className="text-lg font-bold">{stats.blogs}</div>
+                            <div className="text-[10px] text-muted-foreground uppercase tracking-wider">Technical Blogs</div>
+                        </div>
                     </div>
-                    <div>
-                        <div className="text-lg font-bold">{stats.blogs}</div>
-                        <div className="text-[10px] text-muted-foreground uppercase tracking-wider">Technical Blogs</div>
-                    </div>
-                </motion.div>
+                </div>
             </div>
         </>
     )

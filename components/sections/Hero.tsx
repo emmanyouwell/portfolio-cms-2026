@@ -1,6 +1,5 @@
 'use client'
 
-import { motion, useScroll, useTransform } from 'framer-motion'
 import Link from 'next/link'
 import { ArrowRight, Sparkles } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -20,10 +19,7 @@ interface HeroProps {
 }
 
 export function Hero({ stats }: HeroProps) {
-    const { scrollY } = useScroll()
     const isMobile = useMediaQuery('(max-width: 768px)')
-
-    const y2 = useTransform(scrollY, [0, 500], [0, -150])
 
     return (
         <section className="relative min-h-[90vh] overflow-hidden bg-background flex flex-col justify-center py-8">
@@ -35,9 +31,8 @@ export function Hero({ stats }: HeroProps) {
 
                     {/* Visual Scene (Right/Top on Mobile) */}
                     <div className="order-last w-full lg:w-1/2 relative min-h-[300px] lg:min-h-[500px] flex items-center justify-center">
-                        <motion.div
-                            style={{ y: isMobile ? 0 : y2 }}
-                            className="relative z-10 w-full max-w-sm lg:aspect-square bg-gradient-to-tr from-primary/10 to-transparent rounded-3xl lg:rounded-full border border-primary/20 backdrop-blur-sm flex flex-col lg:items-center lg:justify-center p-6 lg:p-0 gap-8 lg:gap-0"
+                        <div
+                            className="relative z-10 w-full max-w-sm lg:aspect-square bg-gradient-to-tr from-primary/10 to-transparent rounded-3xl lg:rounded-full border border-primary/20 backdrop-blur-sm flex flex-col lg:items-center lg:justify-center p-6 lg:p-0 gap-8 lg:gap-0 animate-fade-in-up"
                         >
 
 
@@ -55,25 +50,19 @@ export function Hero({ stats }: HeroProps) {
                                 </div>
                             </div>
                             <HeroDecorations stats={stats} />
-                        </motion.div>
+                        </div>
                     </div>
 
                     {/* Content (Left/Bottom) */}
-                    <motion.div
-                        initial={{ opacity: 0, x: -50 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.8, ease: "easeOut" }}
-                        className="w-full lg:w-1/2 space-y-8 text-center lg:text-left"
+                    <div
+                        className="w-full lg:w-1/2 space-y-8 text-center lg:text-left animate-fade-in-left"
                     >
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.2 }}
-                            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium"
+                        <div
+                            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium animate-fade-in-up delay-200"
                         >
                             <Sparkles className="w-4 h-4" />
                             <span>Available for new opportunities</span>
-                        </motion.div>
+                        </div>
 
                         <h1 className="text-4xl lg:text-7xl font-bold tracking-tight leading-[1.1]">
                             Hi, I&apos;m <br />
@@ -106,7 +95,7 @@ export function Hero({ stats }: HeroProps) {
                                 })}>Initiate Contact</Link>
                             </Button>
                         </div>
-                    </motion.div>
+                    </div>
                 </div>
             </div>
 
