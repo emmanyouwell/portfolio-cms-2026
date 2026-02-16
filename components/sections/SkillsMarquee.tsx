@@ -1,10 +1,9 @@
 'use client'
 
-import { motion, useAnimationFrame } from 'framer-motion'
-import { useRef, useState } from 'react'
 import { Skill } from '@/types/cms'
 import { cn } from '@/lib/utils'
 import Image from 'next/image'
+import { useInView } from '@/hooks/use-in-view'
 
 interface SkillsMarqueeProps {
     skills: Skill[]
@@ -14,81 +13,90 @@ interface SkillsMarqueeProps {
 
 export function SkillsMarquee({
     skills,
-    speed = 30,
+    speed = 200,
     pauseOnHover = true
 }: SkillsMarqueeProps) {
-    const [isPaused, setIsPaused] = useState(false)
-    const xRef = useRef(0)
-    const containerRef = useRef<HTMLDivElement>(null)
+    const { ref, hasInView } = useInView({ threshold: 0.1 })
 
-    // Duplicate skills array for seamless loop
-    const duplicatedSkills = [...skills, ...skills, ...skills]
-
-    useAnimationFrame((time, delta) => {
-        if (!isPaused && containerRef.current) {
-            xRef.current -= (delta / 1000) * speed
-
-            // Reset position for seamless loop
-            const containerWidth = containerRef.current.scrollWidth / 3
-            if (Math.abs(xRef.current) >= containerWidth) {
-                xRef.current = 0
-            }
-
-            containerRef.current.style.transform = `translateX(${xRef.current}px)`
-        }
-    })
+    // We need 2 sets of skills for the seamless loop
+    // But to be safe on wider screens, we can keep 3 or just ensure the container is wide enough
+    // The standard CSS marquee technique uses 2 identical sets animating to -100%
+    const duplicatedSkills = [...skills, ...skills]
 
     return (
         <div className="py-12">
             <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.3 }}
-                    className="mb-8 text-center"
+                <div
+                    ref={ref}
+                    className={`mb-8 text-center ${hasInView ? 'animate-fade-in-up' : 'opacity-0'}`}
                 >
                     <h2 className="text-sm font-semibold uppercase tracking-widest text-muted-foreground">Powered By</h2>
-                </motion.div>
+                </div>
 
                 <div
-                    className="relative overflow-hidden"
-                    onMouseEnter={() => pauseOnHover && setIsPaused(true)}
-                    onMouseLeave={() => pauseOnHover && setIsPaused(false)}
+                    className={cn(
+                        "relative flex overflow-hidden mask-linear-gradient",
+                        pauseOnHover && "group"
+                    )}
                 >
+                    {/* First Marquee Item */}
                     <div
-                        ref={containerRef}
-                        className="flex gap-8"
-                        style={{ willChange: 'transform' }}
+                        className={cn(
+                            "flex min-w-full shrink-0 gap-8 animate-marquee items-center justify-around pr-8",
+                            pauseOnHover && "group-hover:[animation-play-state:paused]"
+                        )}
+                        style={{ animationDuration: `${speed}s` }}
                     >
                         {duplicatedSkills.map((skill, index) => (
-                            <div
-                                key={`${skill.name}-${index}`}
-                                className={cn(
-                                    "flex flex-shrink-0 items-center justify-center rounded-lg bg-card px-8 py-6 shadow-sm transition-all",
-                                    "hover:shadow-md hover:scale-105"
-                                )}
-                            >
-                                <div className="flex items-center space-x-3">
-                                    {/* Icon placeholder */}
-                                    <div className="h-8 w-8 rounded bg-primary/10 flex items-center justify-center">{skill?.stackIcon ? (<Image src={skill.stackIcon} alt={skill.name} width={24} height={24} className="object-cover" />) : (<span className="text-xs font-bold text-primary">
-                                        {skill.name.substring(0, 2).toUpperCase()}
-                                    </span>)
-                                    }
-                                    </div>
-                                    <span className="text-sm font-medium text-foreground whitespace-nowrap">
-                                        {skill.name}
-                                    </span>
-                                </div>
-                            </div>
+                            <SkillCard key={`1-${skill.name}-${index}`} skill={skill} />
+                        ))}
+                    </div>
+
+                    {/* Second Marquee Item (Duplicate) */}
+                    <div
+                        className={cn(
+                            "flex min-w-full shrink-0 gap-8 animate-marquee items-center justify-around pr-8",
+                            pauseOnHover && "group-hover:[animation-play-state:paused]"
+                        )}
+                        style={{ animationDuration: `${speed}s` }}
+                    >
+                        {duplicatedSkills.map((skill, index) => (
+                            <SkillCard key={`2-${skill.name}-${index}`} skill={skill} />
                         ))}
                     </div>
 
                     {/* Gradient overlays for fade effect */}
-                    <div className="pointer-events-none absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-muted/30 to-transparent" />
-                    <div className="pointer-events-none absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-muted/30 to-transparent" />
+                    <div className="pointer-events-none absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-background to-transparent z-10" />
+                    <div className="pointer-events-none absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-background to-transparent z-10" />
                 </div>
             </div>
         </div >
+    )
+}
+
+function SkillCard({ skill }: { skill: Skill }) {
+    return (
+        <div
+            className={cn(
+                "flex flex-shrink-0 items-center justify-center rounded-lg bg-card px-8 py-6 shadow-sm transition-all",
+                "hover:shadow-md hover:scale-105"
+            )}
+        >
+            <div className="flex items-center space-x-3">
+                {/* Icon placeholder */}
+                <div className="h-8 w-8 rounded bg-primary/10 flex items-center justify-center">
+                    {skill?.stackIcon ? (
+                        <Image src={skill.stackIcon} alt={skill.name} width={24} height={24} className="object-cover" />
+                    ) : (
+                        <span className="text-xs font-bold text-primary">
+                            {skill.name.substring(0, 2).toUpperCase()}
+                        </span>
+                    )}
+                </div>
+                <span className="text-sm font-medium text-foreground whitespace-nowrap">
+                    {skill.name}
+                </span>
+            </div>
+        </div>
     )
 }

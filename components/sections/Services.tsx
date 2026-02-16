@@ -1,9 +1,9 @@
 'use client'
 
-import { motion } from 'framer-motion'
 import { Layout, Smartphone, Server } from 'lucide-react'
 import { Skill } from '@/types/cms'
 import { SkillsMarquee } from './SkillsMarquee'
+import { useInView } from '@/hooks/use-in-view'
 
 interface ServicesProps {
     skills: Skill[]
@@ -31,18 +31,17 @@ const services = [
 ]
 
 export function Services({ skills }: ServicesProps) {
+    const { ref: headerRef, hasInView: headerInView } = useInView({ threshold: 0.1 })
+
     return (
         <section id="services" className="relative bg-muted/10 py-24 overflow-hidden">
             {/* Top Divider */}
 
 
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6 }}
-                    className="text-center mb-16"
+                <div
+                    ref={headerRef}
+                    className={`text-center mb-16 ${headerInView ? 'animate-fade-in-up' : 'opacity-0'}`}
                 >
                     <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-4">
                         Crafting Digital <br />
@@ -53,40 +52,53 @@ export function Services({ skills }: ServicesProps) {
                     <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
                         From concept to deployment, I handle the entire lifecycle of modern web development.
                     </p>
-                </motion.div>
+                </div>
 
                 {/* Services Cards */}
                 <div className="grid md:grid-cols-3 gap-8 mb-20">
                     {services.map((service, index) => (
-                        <motion.div
-                            key={index}
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.5, delay: index * 0.1 }}
-                            className="group p-8 rounded-3xl bg-background border border-border/50 hover:border-primary/50 transition-all hover:shadow-2xl hover:shadow-primary/5 relative overflow-hidden"
-                        >
-                            <div className={`absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity ${service.color}`}>
-                                <service.icon className="w-24 h-24" />
-                            </div>
-
-                            <div className={`w-12 h-12 rounded-2xl bg-muted/50 flex items-center justify-center mb-6 text-primary group-hover:scale-110 transition-transform duration-300`}>
-                                <service.icon className="w-6 h-6" />
-                            </div>
-
-                            <h3 className="text-xl font-bold mb-3">{service.title}</h3>
-                            <p className="text-muted-foreground leading-relaxed">
-                                {service.description}
-                            </p>
-                        </motion.div>
+                        <ServiceCard key={index} service={service} index={index} />
                     ))}
                 </div>
             </div>
 
             {/* Tech Stack Integration */}
-            <div className="relative">
+            <div className={`${headerInView ? 'animate-fade-in-up' : 'opacity-0'} relative`}>
                 <SkillsMarquee skills={skills} pauseOnHover={true} />
             </div>
         </section>
+    )
+}
+
+function ServiceCard({ service, index }: { service: typeof services[0], index: number }) {
+    const { ref, hasInView } = useInView({ threshold: 0.1 })
+
+    // Choose appropriate delay class based on index
+    // Using inline style for precise delays if needed, or mapping to closest class
+    // delay-100, delay-200, delay-300 etc are available in globals.css
+    // index 0 -> 0s -> no delay class needed or minimal
+    // index 1 -> 0.1s -> delay-100
+    // index 2 -> 0.2s -> delay-200
+
+    const delayClass = index === 0 ? '' : index === 1 ? 'delay-100' : 'delay-200';
+
+    return (
+        <div
+            ref={ref}
+            className={`group p-8 rounded-3xl bg-background border border-border/50 hover:border-primary/50 transition-all hover:shadow-2xl hover:shadow-primary/5 relative overflow-hidden ${hasInView ? `animate-fade-in-up ${delayClass}` : 'opacity-0'}`}
+        >
+            <div className={`absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity ${service.color}`}>
+                <service.icon className="w-24 h-24" />
+            </div>
+
+            <div className={`w-12 h-12 rounded-2xl bg-muted/50 flex items-center justify-center mb-6 text-primary group-hover:scale-110 transition-transform duration-300`}>
+                <service.icon className="w-6 h-6" />
+            </div>
+
+            <h3 className="text-xl font-bold mb-3">{service.title}</h3>
+            <p className="text-muted-foreground leading-relaxed">
+                {service.description}
+            </p>
+        </div>
     )
 }
