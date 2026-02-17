@@ -1,6 +1,6 @@
 'use client'
 
-import { motion } from 'framer-motion'
+
 import Link from 'next/link'
 import { ExternalLink, Calendar } from 'lucide-react'
 import { Card, CardContent } from '@/components/ui/card'
@@ -80,14 +80,7 @@ export function CertificateCard({ certificate }: CertificateCardProps) {
     )
 
     return (
-        <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            whileHover={{ scale: 1.02 }}
-            className="h-full"
-        >
+        <div className="h-full hover:scale-[1.02] transition-transform duration-300">
             {certificate.href ? (
                 <Link
                     href={certificate.href}
@@ -100,6 +93,6 @@ export function CertificateCard({ certificate }: CertificateCardProps) {
             ) : (
                 content
             )}
-        </motion.div>
+        </div>
     )
 }
