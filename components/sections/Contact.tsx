@@ -1,7 +1,8 @@
 'use client'
 
-import { motion } from 'framer-motion'
+
 import { Send, Facebook, Mail, MessageSquare, Loader2 } from 'lucide-react'
+import { useInView } from '@/hooks/use-in-view'
 import { Button } from '@/components/ui/button'
 import { Input } from '../ui/input'
 import { Textarea } from '../ui/textarea'
@@ -25,6 +26,8 @@ type FormData = z.infer<typeof formSchema>
 
 export function Contact() {
     const [isSubmitting, setIsSubmitting] = useState(false)
+    const { ref: contentRef, hasInView: contentInView } = useInView({ threshold: 0.2 })
+    const { ref: formRef, hasInView: formInView } = useInView({ threshold: 0.2 })
 
     const {
         register,
@@ -85,11 +88,10 @@ export function Contact() {
             <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
                 <div className="grid lg:grid-cols-2 gap-16 items-center">
                     {/* Left Column: Content */}
-                    <motion.div
-                        initial={{ opacity: 0, x: -20 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.6 }}
+                    <div
+                        ref={contentRef}
+                        className={`transition-all duration-700 ${contentInView ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'
+                            }`}
                     >
                         <div className="flex items-center gap-2 mb-4 text-primary font-medium">
                             <MessageSquare className="w-5 h-5" />
@@ -138,15 +140,13 @@ export function Contact() {
                                 </div>
                             </div>
                         </div>
-                    </motion.div>
+                    </div>
 
                     {/* Right Column: Form */}
-                    <motion.div
-                        initial={{ opacity: 0, x: 20 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.6, delay: 0.2 }}
-                        className="bg-card/50 backdrop-blur-sm border border-border/50 rounded-2xl p-8 shadow-xl"
+                    <div
+                        ref={formRef}
+                        className={`bg-card/50 backdrop-blur-sm border border-border/50 rounded-2xl p-8 shadow-xl transition-all duration-700 delay-200 ${formInView ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'
+                            }`}
                     >
                         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
                             <div className="space-y-2">
@@ -237,7 +237,7 @@ export function Contact() {
                                 )}
                             </Button>
                         </form>
-                    </motion.div>
+                    </div>
                 </div>
             </div>
         </section>
