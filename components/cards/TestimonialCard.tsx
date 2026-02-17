@@ -3,7 +3,7 @@
 
 import { Testimonial } from '@/types/cms'
 import { Quote } from 'lucide-react'
-import { motion } from 'framer-motion'
+
 
 interface TestimonialCardProps {
     testimonial: Testimonial
@@ -11,9 +11,8 @@ interface TestimonialCardProps {
 
 export function TestimonialCard({ testimonial }: TestimonialCardProps) {
     return (
-        <motion.div
-            whileHover={{ y: -5 }}
-            className="h-[400px] min-w-[350px] max-w-[400px] flex-shrink-0 pt-4"
+        <div
+            className="h-[400px] min-w-[350px] max-w-[400px] flex-shrink-0 pt-4 transition-transform duration-300 hover:-translate-y-1"
         >
             <div className="relative h-full">
                 {/* Large decorative quote mark */}
@@ -53,6 +52,6 @@ export function TestimonialCard({ testimonial }: TestimonialCardProps) {
                     </div>
                 </div>
             </div>
-        </motion.div>
+        </div>
     )
 }
