@@ -1,28 +1,30 @@
 'use client'
 
-import { motion } from 'framer-motion'
+
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { BlogCard } from '@/components/cards/BlogCard'
 import { Blog } from '@/types/cms'
-import { staggerCards, cardItem } from '@/lib/motion-variants'
+import { useInView } from '@/hooks/use-in-view'
 
 interface BlogProps {
     blogs: Blog[]
 }
 
 export function BlogSection({ blogs }: BlogProps) {
+    const { ref: headerRef, hasInView: headerInView } = useInView({ threshold: 0.2 })
+    const { ref: gridRef, hasInView: gridInView } = useInView({ threshold: 0.1 })
+    const { ref: buttonRef, hasInView: buttonInView } = useInView({ threshold: 0.2 })
+
     return (
         <section id="blog" className="border-b border-border/40 bg-background py-20">
             <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 {/* Section Header */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6 }}
-                    className="mb-12 text-center"
+                <div
+                    ref={headerRef}
+                    className={`mb-12 text-center transition-all duration-700 ${headerInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+                        }`}
                 >
                     <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
                         Latest Blog Posts
@@ -30,30 +32,30 @@ export function BlogSection({ blogs }: BlogProps) {
                     <p className="mt-4 text-lg text-muted-foreground">
                         Thoughts, tutorials, and insights on web development
                     </p>
-                </motion.div>
+                </div>
 
                 {/* Blog Grid */}
-                <motion.div
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, margin: "-100px" }}
-                    variants={staggerCards}
+                <div
+                    ref={gridRef}
                     className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3"
                 >
-                    {blogs.map((blog) => (
-                        <motion.div key={blog.id} variants={cardItem}>
+                    {blogs.map((blog, index) => (
+                        <div
+                            key={blog.id}
+                            className={`transition-all duration-700 ${gridInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
+                                }`}
+                            style={{ transitionDelay: `${index * 100}ms` }}
+                        >
                             <BlogCard blog={blog} />
-                        </motion.div>
+                        </div>
                     ))}
-                </motion.div>
+                </div>
 
                 {/* View All Button */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: 0.3 }}
-                    className="mt-12 text-center"
+                <div
+                    ref={buttonRef}
+                    className={`mt-12 text-center transition-all duration-700 delay-300 ${buttonInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+                        }`}
                 >
                     <Button size="lg" variant="outline" asChild>
                         <Link href="/blog">
@@ -61,7 +63,7 @@ export function BlogSection({ blogs }: BlogProps) {
                             <ArrowRight className="ml-2 h-4 w-4" />
                         </Link>
                     </Button>
-                </motion.div>
+                </div>
             </div>
         </section>
     )

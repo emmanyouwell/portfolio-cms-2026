@@ -1,6 +1,6 @@
 'use client'
 
-import { motion } from 'framer-motion'
+
 import Link from 'next/link'
 import { Clock, ArrowRight } from 'lucide-react'
 import { Card, CardContent } from '@/components/ui/card'
@@ -14,13 +14,7 @@ interface BlogCardProps {
 
 export function BlogCard({ blog }: BlogCardProps) {
     return (
-        <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="group h-full"
-        >
+        <div className="group h-full">
             <Link href={blog.link} className="block h-full">
                 <div className="relative h-full transition-transform duration-300 group-hover:-translate-y-2">
 
@@ -30,10 +24,8 @@ export function BlogCard({ blog }: BlogCardProps) {
                     <Card className="h-full overflow-hidden rounded-2xl border-border/50 bg-card/80 backdrop-blur-sm transition-all shadow-lg hover:shadow-xl dark:bg-card/40">
                         <div className="relative aspect-[16/9] overflow-hidden bg-muted">
                             {/* Blog Image Placeholder */}
-                            <motion.div
-                                className="flex h-full w-full items-center justify-center bg-gradient-to-tr from-secondary/30 to-muted"
-                                whileHover={{ scale: 1.05 }}
-                                transition={{ duration: 0.5 }}
+                            <div
+                                className="flex h-full w-full items-center justify-center bg-gradient-to-tr from-secondary/30 to-muted transition-transform duration-500 group-hover:scale-105"
                             >
                                 {blog.image.url ? (
                                     <Image src={blog.image.url} alt={blog.title} fill className="object-cover" loading="lazy" />
@@ -44,7 +36,7 @@ export function BlogCard({ blog }: BlogCardProps) {
                                     </p>
                                 )}
 
-                            </motion.div>
+                            </div>
 
                             {/* Date Badge */}
                             {blog.publishedDate && (
@@ -99,6 +91,6 @@ export function BlogCard({ blog }: BlogCardProps) {
                     </Card>
                 </div>
             </Link >
-        </motion.div >
+        </div >
     )
 }
