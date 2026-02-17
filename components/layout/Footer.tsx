@@ -1,7 +1,6 @@
 'use client'
 
 import Link from 'next/link'
-import { motion } from 'framer-motion'
 import { Github, Linkedin, Mail, Rocket, Facebook } from 'lucide-react'
 import { CurveDivider } from '@/components/ui/dividers'
 import { trackEvent } from '@/lib/gtag'
@@ -44,7 +43,7 @@ export function Footer() {
                             {socialLinks.map((social) => {
                                 const Icon = social.icon
                                 return (
-                                    <motion.a
+                                    <a
                                         key={social.label}
                                         href={social.href}
                                         target="_blank"
@@ -54,12 +53,10 @@ export function Footer() {
                                             link_name: social.label,
                                             location: "footer"
                                         })}
-                                        className="p-3 rounded-full bg-background border border-border text-muted-foreground transition-all hover:text-primary hover:border-primary hover:shadow-lg hover:shadow-primary/20"
-                                        whileHover={{ y: -4 }}
-                                        whileTap={{ scale: 0.9 }}
+                                        className="p-3 rounded-full bg-background border border-border text-muted-foreground transition-all duration-300 hover:text-primary hover:border-primary hover:shadow-lg hover:shadow-primary/20 hover:-translate-y-1 active:scale-90"
                                     >
                                         <Icon className="h-5 w-5" />
-                                    </motion.a>
+                                    </a>
                                 )
                             })}
                         </div>

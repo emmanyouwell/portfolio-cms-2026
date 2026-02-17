@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { motion } from 'framer-motion'
+
 
 interface TypewriterEffectProps {
     words: string[]
@@ -50,15 +50,18 @@ export function TypewriterEffect({
     return (
         <span className={className}>
             {currentText}
-            <motion.span
-                animate={{ opacity: [1, 0] }}
-                transition={{
-                    duration: 0.8,
-                    repeat: Infinity,
-                    ease: "linear"
-                }}
-                className={`inline-block ml-1 w-[2px] h-[1em] bg-primary align-middle ${cursorClassName}`}
+            <span
+                className={`inline-block ml-1 w-[2px] h-[1em] bg-primary align-middle animate-blink ${cursorClassName}`}
             />
+            <style jsx>{`
+                @keyframes blink {
+                    0%, 100% { opacity: 1; }
+                    50% { opacity: 0; }
+                }
+                .animate-blink {
+                    animation: blink 0.8s linear infinite;
+                }
+            `}</style>
         </span>
     )
 }
