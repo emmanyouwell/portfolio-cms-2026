@@ -1,17 +1,16 @@
 'use client'
 
-
 import { Send, Facebook, Mail, MessageSquare, Loader2 } from 'lucide-react'
 import { useInView } from '@/hooks/use-in-view'
 import { Button } from '@/components/ui/button'
-import { Input } from '../ui/input'
-import { Textarea } from '../ui/textarea'
+import { Input } from '@/components/ui/input'
+import { Textarea } from '@/components/ui/textarea'
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { CurveDivider } from '@/components/ui/dividers'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
 import { useState } from 'react'
-import { cn } from '@/lib/utils'
 import { toast } from "sonner"
 import { trackEvent } from '@/lib/gtag'
 
@@ -29,12 +28,7 @@ export function Contact() {
     const { ref: contentRef, hasInView: contentInView } = useInView({ threshold: 0.2 })
     const { ref: formRef, hasInView: formInView } = useInView({ threshold: 0.2 })
 
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-        reset,
-    } = useForm<FormData>({
+    const form = useForm<FormData>({
         resolver: zodResolver(formSchema),
         defaultValues: {
             name: "",
@@ -64,7 +58,7 @@ export function Contact() {
                 form_name: 'contact_form',
                 location: 'contact_section'
             })
-            reset()
+            form.reset()
             toast.success("Message sent successfully!", {
                 description: "I'll get back to you as soon as possible.",
             })
@@ -148,95 +142,84 @@ export function Contact() {
                         className={`bg-card/50 backdrop-blur-sm border border-border/50 rounded-2xl p-8 shadow-xl transition-all duration-700 delay-200 ${formInView ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'
                             }`}
                     >
-                        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-                            <div className="space-y-2">
-                                <label htmlFor="name" className="text-sm font-medium text-foreground">
-                                    Name
-                                </label>
-                                <Input
-                                    id="name"
-                                    placeholder="Your Name"
-                                    {...register("name")}
-                                    className={cn(
-                                        "bg-background/50 border-primary/20 focus:border-primary",
-                                        errors.name && "border-destructive focus-visible:ring-destructive"
+                        <Form {...form}>
+                            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                                <FormField
+                                    control={form.control}
+                                    name="name"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel>Name</FormLabel>
+                                            <FormControl>
+                                                <Input placeholder="Your Name" {...field} className="bg-background/50 border-primary/20 focus:border-primary" />
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
                                     )}
                                 />
-                                {errors.name && (
-                                    <p className="text-sm text-destructive font-medium">{errors.name.message}</p>
-                                )}
-                            </div>
 
-                            <div className="space-y-2">
-                                <label htmlFor="email" className="text-sm font-medium text-foreground">
-                                    Email
-                                </label>
-                                <Input
-                                    id="email"
-                                    type="email"
-                                    placeholder="your@email.com"
-                                    {...register("email")}
-                                    className={cn(
-                                        "bg-background/50 border-primary/20 focus:border-primary",
-                                        errors.email && "border-destructive focus-visible:ring-destructive"
+                                <FormField
+                                    control={form.control}
+                                    name="email"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel>Email</FormLabel>
+                                            <FormControl>
+                                                <Input type="email" placeholder="your@email.com" {...field} className="bg-background/50 border-primary/20 focus:border-primary" />
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
                                     )}
                                 />
-                                {errors.email && (
-                                    <p className="text-sm text-destructive font-medium">{errors.email.message}</p>
-                                )}
-                            </div>
 
-                            <div className="space-y-2">
-                                <label htmlFor="facebook" className="text-sm font-medium text-foreground">
-                                    Facebook (Optional)
-                                </label>
-                                <Input
-                                    id="facebook"
-                                    type="text"
-                                    placeholder="Your Facebook Profile Link"
-                                    {...register("facebook")}
-                                    className="bg-background/50 border-primary/20 focus:border-primary"
-                                />
-                            </div>
-
-                            <div className="space-y-2">
-                                <label htmlFor="message" className="text-sm font-medium text-foreground">
-                                    Message
-                                </label>
-                                <Textarea
-                                    id="message"
-                                    placeholder="Tell me about your project..."
-                                    rows={5}
-                                    {...register("message")}
-                                    className={cn(
-                                        "bg-background/50 border-primary/20 focus:border-primary resize-none",
-                                        errors.message && "border-destructive focus-visible:ring-destructive"
+                                <FormField
+                                    control={form.control}
+                                    name="facebook"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel>Facebook (Optional)</FormLabel>
+                                            <FormControl>
+                                                <Input placeholder="Your Facebook Profile Link" {...field} className="bg-background/50 border-primary/20 focus:border-primary" />
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
                                     )}
                                 />
-                                {errors.message && (
-                                    <p className="text-sm text-destructive font-medium">{errors.message.message}</p>
-                                )}
-                            </div>
 
-                            <Button
-                                type="submit"
-                                size="lg"
-                                className="w-full gap-2"
-                                disabled={isSubmitting}
-                            >
-                                {isSubmitting ? (
-                                    <>
-                                        Sending...
-                                        <Loader2 className="w-4 h-4 animate-spin" />
-                                    </>
-                                ) : (
-                                    <>
-                                        Send Message
-                                        <Send className="w-4 h-4" />
-                                    </>
-                                )}
-                            </Button>
-                        </form>
+                                <FormField
+                                    control={form.control}
+                                    name="message"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel>Message</FormLabel>
+                                            <FormControl>
+                                                <Textarea placeholder="Tell me about your project..." rows={5} {...field} className="bg-background/50 border-primary/20 focus:border-primary resize-none" />
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
+
+                                <Button
+                                    type="submit"
+                                    size="lg"
+                                    className="w-full gap-2"
+                                    disabled={isSubmitting}
+                                >
+                                    {isSubmitting ? (
+                                        <>
+                                            Sending...
+                                            <Loader2 className="w-4 h-4 animate-spin" />
+                                        </>
+                                    ) : (
+                                        <>
+                                            Send Message
+                                            <Send className="w-4 h-4" />
+                                        </>
+                                    )}
+                                </Button>
+                            </form>
+                        </Form>
                     </div>
                 </div>
             </div>

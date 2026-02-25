@@ -1,9 +1,8 @@
-'use client'
+
 
 import { Skill } from '@/types/cms'
 import { cn } from '@/lib/utils'
 import Image from 'next/image'
-import { useInView } from '@/hooks/use-in-view'
 
 interface SkillsMarqueeProps {
     skills: Skill[]
@@ -16,8 +15,6 @@ export function SkillsMarquee({
     speed = 200,
     pauseOnHover = true
 }: SkillsMarqueeProps) {
-    const { ref, hasInView } = useInView({ threshold: 0.1 })
-
     // We need 2 sets of skills for the seamless loop
     // But to be safe on wider screens, we can keep 3 or just ensure the container is wide enough
     // The standard CSS marquee technique uses 2 identical sets animating to -100%
@@ -26,10 +23,7 @@ export function SkillsMarquee({
     return (
         <div className="py-12">
             <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                <div
-                    ref={ref}
-                    className={`mb-8 text-center ${hasInView ? 'animate-fade-in-up' : 'opacity-0'}`}
-                >
+                <div className="mb-8 text-center">
                     <h2 className="text-sm font-semibold uppercase tracking-widest text-muted-foreground">Powered By</h2>
                 </div>
 

@@ -8,10 +8,10 @@ import { ThemeToggle } from '@/components/ui/theme-toggle'
 import { trackEvent } from '@/lib/gtag'
 
 const navLinks = [
-    { href: '#projects', label: 'Projects' },
-    { href: '#certificates', label: 'Certificates' },
-    { href: '#blog', label: 'Blog' },
-    { href: '#testimonials', label: 'Testimonials' },
+    { href: '/projects', label: 'Projects' },
+    { href: '/#certificates', label: 'Certificates' },
+    { href: '/#blog', label: 'Blog' },
+    { href: '/#testimonials', label: 'Testimonials' },
 ]
 
 export function Navbar() {
@@ -70,24 +70,26 @@ export function Navbar() {
                 <div className="hidden md:flex items-center gap-4">
                     <ThemeToggle />
                     <Button size={scrolled ? "sm" : "default"} className="rounded-full shadow-md shadow-primary/20" asChild>
-                        <Link href="#contact">Let&apos;s Talk</Link>
+                        <Link href="/#contact">Let&apos;s Talk</Link>
                     </Button>
                 </div>
 
                 {/* Mobile Menu Button */}
                 <div className="flex items-center gap-2 md:hidden">
                     <ThemeToggle />
-                    <button
-                        className="p-1 rounded-md hover:bg-muted"
+                    <Button
+                        variant="ghost"
+                        size="icon"
+                        className="h-8 w-8"
                         onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                         aria-label="Toggle menu"
                     >
                         {mobileMenuOpen ? (
-                            <X className="h-6 w-6" />
+                            <X className="h-5 w-5" />
                         ) : (
-                            <Menu className="h-6 w-6" />
+                            <Menu className="h-5 w-5" />
                         )}
-                    </button>
+                    </Button>
                 </div>
 
                 {/* Mobile Menu Dropdown */}
@@ -108,7 +110,7 @@ export function Navbar() {
                         </Link>
                     ))}
                     <Button asChild className="w-full rounded-xl">
-                        <Link href="#contact" onClick={() => setMobileMenuOpen(false)}>
+                        <Link href="/#contact" onClick={() => setMobileMenuOpen(false)}>
                             Let&apos;s Talk
                         </Link>
                     </Button>

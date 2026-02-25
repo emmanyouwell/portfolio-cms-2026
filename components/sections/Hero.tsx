@@ -8,7 +8,6 @@ import { WaveDivider } from '@/components/ui/dividers'
 import { TypewriterEffect } from "@/components/ui/TypewriterEffect";
 import { trackEvent } from '@/lib/gtag'
 import Image from 'next/image'
-import { useMediaQuery } from '@/hooks/use-media-query'
 import dynamic from 'next/dynamic'
 
 const HeroDecorations = dynamic(() => import('./HeroDecorations'), { ssr: false })
@@ -19,7 +18,6 @@ interface HeroProps {
 }
 
 export function Hero({ stats }: HeroProps) {
-    const isMobile = useMediaQuery('(max-width: 768px)')
 
     return (
         <section className="relative min-h-[90vh] overflow-hidden bg-background flex flex-col justify-center py-8">
@@ -32,7 +30,7 @@ export function Hero({ stats }: HeroProps) {
                     {/* Visual Scene (Right/Top on Mobile) */}
                     <div className="order-last w-full lg:w-1/2 relative min-h-[300px] lg:min-h-[500px] flex items-center justify-center">
                         <div
-                            className="relative z-10 w-full max-w-sm lg:aspect-square bg-gradient-to-tr from-primary/10 to-transparent rounded-3xl lg:rounded-full border border-primary/20 backdrop-blur-sm flex flex-col lg:items-center lg:justify-center p-6 lg:p-0 gap-8 lg:gap-0 animate-fade-in-up"
+                            className="relative z-10 w-full max-w-sm lg:aspect-square bg-gradient-to-tr from-primary/10 to-transparent rounded-3xl lg:rounded-full border border-primary/20 backdrop-blur-sm flex flex-col lg:items-center lg:justify-center p-6 lg:p-0 gap-8 lg:gap-0"
                         >
 
 
@@ -54,19 +52,15 @@ export function Hero({ stats }: HeroProps) {
                     </div>
 
                     {/* Content (Left/Bottom) */}
-                    <div
-                        className="w-full lg:w-1/2 space-y-8 text-center lg:text-left animate-fade-in-left"
-                    >
-                        <div
-                            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium animate-fade-in-up delay-200"
-                        >
+                    <div className="w-full lg:w-1/2 space-y-8 text-center lg:text-left">
+                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium">
                             <Sparkles className="w-4 h-4" />
                             <span>Available for new opportunities</span>
                         </div>
 
                         <h1 className="text-4xl lg:text-7xl font-bold tracking-tight leading-[1.1]">
                             Hi, I&apos;m <br />
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-primary animate-gradient-x bg-300%">
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-primary">
                                 <TypewriterEffect
                                     words={["Emmanuel Mingala", "a Web Developer", "a Freelancer", "a Contributor"]} className="text-4xl lg:text-7xl font-bold tracking-tight leading-[1.1]"
                                 />

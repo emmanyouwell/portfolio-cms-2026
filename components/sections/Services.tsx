@@ -1,9 +1,8 @@
-'use client'
+
 
 import { Layout, Smartphone, Server } from 'lucide-react'
 import { Skill } from '@/types/cms'
 import { SkillsMarquee } from './SkillsMarquee'
-import { useInView } from '@/hooks/use-in-view'
 
 interface ServicesProps {
     skills: Skill[]
@@ -24,25 +23,20 @@ const services = [
     },
     {
         title: 'Backend Architecture',
-        description: 'Designing robust, scalable server-side systems and APIs using Node.js, Python, and modern databases.',
+        description: 'Designing robust, scalable server-side systems and APIs using Node.js and modern databases.',
         icon: Server,
         color: 'text-green-500'
     }
 ]
 
 export function Services({ skills }: ServicesProps) {
-    const { ref: headerRef, hasInView: headerInView } = useInView({ threshold: 0.1 })
-
     return (
         <section id="services" className="relative bg-muted/10 py-24 overflow-hidden">
             {/* Top Divider */}
 
 
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                <div
-                    ref={headerRef}
-                    className={`text-center mb-16 ${headerInView ? 'animate-fade-in-up' : 'opacity-0'}`}
-                >
+                <div className="text-center mb-16">
                     <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-4">
                         Crafting Digital <br />
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">
@@ -57,36 +51,22 @@ export function Services({ skills }: ServicesProps) {
                 {/* Services Cards */}
                 <div className="grid md:grid-cols-3 gap-8 mb-20">
                     {services.map((service, index) => (
-                        <ServiceCard key={index} service={service} index={index} />
+                        <ServiceCard key={index} service={service} />
                     ))}
                 </div>
             </div>
 
             {/* Tech Stack Integration */}
-            <div className={`${headerInView ? 'animate-fade-in-up' : 'opacity-0'} relative`}>
+            <div className="relative">
                 <SkillsMarquee skills={skills} pauseOnHover={true} />
             </div>
         </section>
     )
 }
 
-function ServiceCard({ service, index }: { service: typeof services[0], index: number }) {
-    const { ref, hasInView } = useInView({ threshold: 0.1 })
-
-    // Choose appropriate delay class based on index
-    // Using inline style for precise delays if needed, or mapping to closest class
-    // delay-100, delay-200, delay-300 etc are available in globals.css
-    // index 0 -> 0s -> no delay class needed or minimal
-    // index 1 -> 0.1s -> delay-100
-    // index 2 -> 0.2s -> delay-200
-
-    const delayClass = index === 0 ? '' : index === 1 ? 'delay-100' : 'delay-200';
-
+function ServiceCard({ service }: { service: typeof services[0] }) {
     return (
-        <div
-            ref={ref}
-            className={`group p-8 rounded-3xl bg-background border border-border/50 hover:border-primary/50 transition-all hover:shadow-2xl hover:shadow-primary/5 relative overflow-hidden ${hasInView ? `animate-fade-in-up ${delayClass}` : 'opacity-0'}`}
-        >
+        <div className="group p-8 rounded-3xl bg-background border border-border/50 hover:border-primary/50 transition-all hover:shadow-2xl hover:shadow-primary/5 relative overflow-hidden">
             <div className={`absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity ${service.color}`}>
                 <service.icon className="w-24 h-24" />
             </div>

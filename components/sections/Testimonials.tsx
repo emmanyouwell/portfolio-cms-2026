@@ -1,18 +1,12 @@
-'use client'
-
-
 import { TestimonialCard } from '@/components/cards/TestimonialCard'
 import { Testimonial } from '@/types/cms'
 import { WaveDivider } from '@/components/ui/dividers'
-import { useInView } from '@/hooks/use-in-view'
 
 interface TestimonialsProps {
     testimonials: Testimonial[]
-    speed?: number
 }
 
-export function Testimonials({ testimonials, speed = 30 }: TestimonialsProps) {
-    const { ref: headerRef, hasInView: headerInView } = useInView({ threshold: 0.2 })
+export function Testimonials({ testimonials }: TestimonialsProps) {
 
     // Duplicate testimonials array for seamless loop
     const duplicatedTestimonials = [...testimonials, ...testimonials, ...testimonials]
@@ -26,16 +20,12 @@ export function Testimonials({ testimonials, speed = 30 }: TestimonialsProps) {
 
             <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
                 {/* Section Header */}
-                <div
-                    ref={headerRef}
-                    className={`mb-16 text-center max-w-3xl mx-auto transition-all duration-700 ${headerInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-                        }`}
-                >
+                <div className="mb-16 text-center max-w-3xl mx-auto">
                     <h2 className="text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl mb-6">
-                        Trusted by industry leaders
+                        What Teammates Say
                     </h2>
                     <p className="text-lg text-muted-foreground">
-                        I&apos;ve had the privilege of working with amazing teams. Here&apos;s what they have to say.
+                        From group projects to collaborative builds, here&apos;s feedback from people I&apos;ve worked closely with.
                     </p>
                 </div>
 
