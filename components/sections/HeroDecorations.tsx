@@ -22,7 +22,7 @@ export default function HeroDecorations({ stats }: HeroDecorationsProps) {
             )}
 
             {/* Floating Elements & Stats Cards Container */}
-            <div className="grid grid-cols-2 gap-4 w-full lg:contents">
+            <div className="grid grid-cols-1 min-[400px]:grid-cols-2 gap-2 min-[400px]:gap-4 w-full lg:contents">
 
                 {/* Code Icon - Floating Element */}
                 <div className="relative lg:absolute lg:-top-10 lg:-right-4 z-20 hidden lg:block">
@@ -33,52 +33,52 @@ export default function HeroDecorations({ stats }: HeroDecorationsProps) {
 
                 {/* Project Launched */}
                 <div className="relative lg:absolute lg:-bottom-8 lg:-left-8 z-20 h-full lg:h-auto">
-                    <div className="p-3 bg-card/80 backdrop-blur-md rounded-2xl border border-border shadow-xl flex items-center gap-3 h-full lg:h-auto">
-                        <div className="p-2 bg-emerald-500/10 rounded-full shrink-0">
-                            <Rocket className="w-5 h-5 text-emerald-500" />
+                    <div className="p-2 min-[400px]:p-3 bg-card/80 backdrop-blur-md rounded-2xl border border-border shadow-xl flex items-center gap-2 min-[400px]:gap-3 h-full lg:h-auto">
+                        <div className="p-1.5 min-[400px]:p-2 bg-emerald-500/10 rounded-full shrink-0">
+                            <Rocket className="w-4 h-4 min-[400px]:w-5 min-[400px]:h-5 text-emerald-500" />
                         </div>
                         <div>
-                            <div className="text-lg font-bold">{stats.projects}</div>
-                            <div className="text-[10px] text-muted-foreground uppercase tracking-wider">Projects Launched</div>
+                            <div className="text-base min-[400px]:text-lg font-bold">{stats.projects}</div>
+                            <div className="text-[9px] min-[400px]:text-[10px] text-muted-foreground uppercase tracking-wider">Projects Launched</div>
                         </div>
                     </div>
                 </div>
 
                 {/* Experience Card - Top Left */}
                 <div className="relative lg:absolute lg:-top-12 lg:-left-4 z-10 h-full lg:h-auto">
-                    <div className="p-3 bg-card/80 backdrop-blur-md rounded-2xl border border-border shadow-xl flex items-center gap-3 h-full lg:h-auto">
-                        <div className="p-2 bg-purple-500/10 rounded-full shrink-0">
-                            <Clock className="w-5 h-5 text-purple-500" />
+                    <div className="p-2 min-[400px]:p-3 bg-card/80 backdrop-blur-md rounded-2xl border border-border shadow-xl flex items-center gap-2 min-[400px]:gap-3 h-full lg:h-auto">
+                        <div className="p-1.5 min-[400px]:p-2 bg-purple-500/10 rounded-full shrink-0">
+                            <Clock className="w-4 h-4 min-[400px]:w-5 min-[400px]:h-5 text-purple-500" />
                         </div>
                         <div>
-                            <div className="text-lg font-bold">{stats.experience}</div>
-                            <div className="text-[10px] text-muted-foreground uppercase tracking-wider">Experience</div>
+                            <div className="text-base min-[400px]:text-lg font-bold">{stats.experience}</div>
+                            <div className="text-[9px] min-[400px]:text-[10px] text-muted-foreground uppercase tracking-wider">Experience</div>
                         </div>
                     </div>
                 </div>
 
                 {/* Certificates Card - Right Middle */}
                 <div className="relative lg:absolute lg:top-1/2 lg:-right-16 z-30 h-full lg:h-auto">
-                    <div className="p-3 bg-card/80 backdrop-blur-md rounded-2xl border border-border shadow-xl flex items-center gap-3 h-full lg:h-auto">
-                        <div className="p-2 bg-primary/10 rounded-full shrink-0">
-                            <Award className="w-5 h-5 text-primary" />
+                    <div className="p-2 min-[400px]:p-3 bg-card/80 backdrop-blur-md rounded-2xl border border-border shadow-xl flex items-center gap-2 min-[400px]:gap-3 h-full lg:h-auto">
+                        <div className="p-1.5 min-[400px]:p-2 bg-primary/10 rounded-full shrink-0">
+                            <Award className="w-4 h-4 min-[400px]:w-5 min-[400px]:h-5 text-primary" />
                         </div>
                         <div>
-                            <div className="text-lg font-bold">{stats.certificates}</div>
-                            <div className="text-[10px] text-muted-foreground uppercase tracking-wider">Certifications</div>
+                            <div className="text-base min-[400px]:text-lg font-bold">{stats.certificates}</div>
+                            <div className="text-[9px] min-[400px]:text-[10px] text-muted-foreground uppercase tracking-wider">Certifications</div>
                         </div>
                     </div>
                 </div>
 
                 {/* Blogs Card - Bottom Right */}
                 <div className="relative lg:absolute lg:-bottom-4 lg:-right-8 z-10 h-full lg:h-auto">
-                    <div className="p-3 bg-card/80 backdrop-blur-md rounded-2xl border border-border shadow-xl flex items-center gap-3 h-full lg:h-auto">
-                        <div className="p-2 bg-purple-500/10 rounded-full shrink-0">
-                            <BookOpen className="w-5 h-5 text-purple-500" />
+                    <div className="p-2 min-[400px]:p-3 bg-card/80 backdrop-blur-md rounded-2xl border border-border shadow-xl flex items-center gap-2 min-[400px]:gap-3 h-full lg:h-auto">
+                        <div className="p-1.5 min-[400px]:p-2 bg-purple-500/10 rounded-full shrink-0">
+                            <BookOpen className="w-4 h-4 min-[400px]:w-5 min-[400px]:h-5 text-purple-500" />
                         </div>
                         <div>
-                            <div className="text-lg font-bold">{stats.blogs}</div>
-                            <div className="text-[10px] text-muted-foreground uppercase tracking-wider">Technical Blogs</div>
+                            <div className="text-base min-[400px]:text-lg font-bold">{stats.blogs}</div>
+                            <div className="text-[9px] min-[400px]:text-[10px] text-muted-foreground uppercase tracking-wider">Technical Blogs</div>
                         </div>
                     </div>
                 </div>

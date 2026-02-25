@@ -69,6 +69,24 @@ export function Navbar() {
                 {/* CTA Button & Theme Toggle (Desktop) */}
                 <div className="hidden md:flex items-center gap-4">
                     <ThemeToggle />
+                    <Button
+                        size={scrolled ? "sm" : "default"}
+                        variant="secondary"
+                        className="rounded-full shadow-md hover:scale-105 transition-transform bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white border-0 font-bold"
+                        asChild
+                    >
+                        <Link
+                            href="/minigames"
+                            onClick={() => trackEvent("navigation_click", {
+                                link_name: "Arcade",
+                                link_path: "/minigames",
+                                location: "navbar_desktop",
+                            })}
+                        >
+                            <Rocket className="w-4 h-4 mr-2 animate-bounce" />
+                            Arcade
+                        </Link>
+                    </Button>
                     <Button size={scrolled ? "sm" : "default"} className="rounded-full shadow-md shadow-primary/20" asChild>
                         <Link href="/#contact">Let&apos;s Talk</Link>
                     </Button>
@@ -104,16 +122,45 @@ export function Navbar() {
                             key={link.href}
                             href={link.href}
                             className="block px-4 py-3 rounded-xl text-base font-medium text-foreground/80 hover:bg-primary/10 hover:text-primary transition-colors"
-                            onClick={() => setMobileMenuOpen(false)}
+                            onClick={() => {
+                                trackEvent("navigation_click", {
+                                    link_name: link.label,
+                                    link_path: link.href,
+                                    location: "navbar_mobile",
+                                })
+                                setMobileMenuOpen(false)
+                            }}
                         >
                             {link.label}
                         </Link>
                     ))}
-                    <Button asChild className="w-full rounded-xl">
-                        <Link href="/#contact" onClick={() => setMobileMenuOpen(false)}>
-                            Let&apos;s Talk
-                        </Link>
-                    </Button>
+                    <div className="flex flex-col gap-3 pt-2">
+                        <Button
+                            asChild
+                            variant="secondary"
+                            className="w-full rounded-xl bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white border-0 font-bold hover:opacity-90 transition-opacity"
+                        >
+                            <Link
+                                href="/minigames"
+                                onClick={() => {
+                                    trackEvent("navigation_click", {
+                                        link_name: "Arcade",
+                                        link_path: "/minigames",
+                                        location: "navbar_mobile",
+                                    })
+                                    setMobileMenuOpen(false)
+                                }}
+                            >
+                                <Rocket className="w-4 h-4 mr-2" />
+                                Arcade Center
+                            </Link>
+                        </Button>
+                        <Button asChild className="w-full rounded-xl">
+                            <Link href="/#contact" onClick={() => setMobileMenuOpen(false)}>
+                                Let&apos;s Talk
+                            </Link>
+                        </Button>
+                    </div>
                 </div>
             </nav>
         </header>

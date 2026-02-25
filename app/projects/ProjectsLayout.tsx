@@ -231,6 +231,23 @@ export function ProjectsLayout({ initialProjects }: ProjectsLayoutProps) {
                         </p>
                     </Link>
 
+                    {/* Wordle Card */}
+                    <Link
+                        href="/minigames/wordle"
+                        onClick={() => trackEvent('minigame_click', { game_name: 'Wordle', source: 'projects_layout_right_panel' })}
+                        className="group flex flex-col gap-3 p-4 rounded-xl border bg-background hover:bg-muted/50 transition-all duration-300 hover:shadow-sm hover:border-primary/30"
+                    >
+                        <div className="flex items-center gap-3">
+                            <div className="flex-shrink-0 w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-xl group-hover:scale-110 transition-transform duration-300">
+                                🟩
+                            </div>
+                            <h4 className="font-semibold text-sm group-hover:text-primary transition-colors">Wordle</h4>
+                        </div>
+                        <p className="text-xs text-muted-foreground line-clamp-2">
+                            Guess the 5-letter word in 6 tries. Featuring a tech-inspired vocabulary!
+                        </p>
+                    </Link>
+
                     {/* Coming Soon Card */}
                     <div className="flex flex-col gap-3 p-4 rounded-xl border border-dashed bg-background/50 opacity-60">
                         <div className="flex items-center gap-3">
