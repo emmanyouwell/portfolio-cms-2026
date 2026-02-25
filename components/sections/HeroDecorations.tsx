@@ -27,7 +27,7 @@ export default function HeroDecorations({ stats }: HeroDecorationsProps) {
                 {/* Code Icon - Floating Element */}
                 <div className="relative lg:absolute lg:-top-10 lg:-right-4 z-20 hidden lg:block">
                     <div className="p-4 bg-card/80 backdrop-blur-md rounded-2xl border border-border shadow-xl">
-                        <Code2 className="w-8 h-8 text-accent" />
+                        <Code2 className="w-8 h-8 text-primary/50" />
                     </div>
                 </div>
 

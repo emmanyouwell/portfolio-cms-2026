@@ -201,6 +201,22 @@ export function ProjectsLayout({ initialProjects }: ProjectsLayoutProps) {
                         </p>
                     </Link>
 
+                    {/* Tic Tac Toe Card */}
+                    <Link
+                        href="/minigames/tic-tac-toe"
+                        className="group flex flex-col gap-3 p-4 rounded-xl border bg-background hover:bg-muted/50 transition-all duration-300 hover:shadow-sm hover:border-primary/30"
+                    >
+                        <div className="flex items-center gap-3">
+                            <div className="flex-shrink-0 w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-xl group-hover:scale-110 transition-transform duration-300">
+                                ❌
+                            </div>
+                            <h4 className="font-semibold text-sm group-hover:text-primary transition-colors">Tic Tac Toe</h4>
+                        </div>
+                        <p className="text-xs text-muted-foreground line-clamp-2">
+                            A timeless classic. Grab a friend and see who can claim three in a row first!
+                        </p>
+                    </Link>
+
                     {/* Coming Soon Card */}
                     <div className="flex flex-col gap-3 p-4 rounded-xl border border-dashed bg-background/50 opacity-60">
                         <div className="flex items-center gap-3">
