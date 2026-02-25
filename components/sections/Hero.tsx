@@ -76,7 +76,7 @@ export function Hero({ stats }: HeroProps) {
                             <Button size="lg" className="rounded-full px-8 h-12 text-base shadow-lg shadow-primary/25 hover:shadow-primary/40 transition-shadow" asChild>
                                 <Link href="#projects" onClick={() => trackEvent('button_click', {
                                     button_name: 'project_cta',
-                                    location: 'hero_section'
+                                    source: 'hero_section'
                                 })}>
                                     View Projects
                                     <ArrowRight className="ml-2 h-4 w-4" />
@@ -85,7 +85,7 @@ export function Hero({ stats }: HeroProps) {
                             <Button size="lg" variant="ghost" className="rounded-full px-8 h-12 text-base hover:bg-primary/5" asChild>
                                 <Link href="#contact" onClick={() => trackEvent('button_click', {
                                     button_name: 'contact_cta',
-                                    location: 'hero_section'
+                                    source: 'hero_section'
                                 })}>Initiate Contact</Link>
                             </Button>
                         </div>

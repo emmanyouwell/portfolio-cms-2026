@@ -6,6 +6,7 @@ import { GameState, calculateWinner } from './logic';
 import { Board } from './components/Board';
 import { ScoreBoard } from './components/ScoreBoard';
 import './styles.css';
+import { trackEvent } from '@/lib/gtag';
 
 export function TicTacToeGame() {
     const [gameState, setGameState] = useState<GameState>({
@@ -72,6 +73,7 @@ export function TicTacToeGame() {
     }, [gameState]);
 
     const handleReset = useCallback(() => {
+        trackEvent("game_interaction", { interaction_type: "play_again", game_name: "tic_tac_toe", source: "tic_tac_toe_page" });
         setGameState((prev) => ({
             ...prev,
             board: Array(9).fill(null),

@@ -57,7 +57,7 @@ export function Navbar() {
                             onClick={() => trackEvent("navigation_click", {
                                 link_name: link.label,
                                 link_path: link.href,
-                                location: "navbar_desktop",
+                                source: "navbar_desktop",
                             })}
                             className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
                         >
@@ -80,7 +80,7 @@ export function Navbar() {
                             onClick={() => trackEvent("navigation_click", {
                                 link_name: "Arcade",
                                 link_path: "/minigames",
-                                location: "navbar_desktop",
+                                source: "navbar_desktop",
                             })}
                         >
                             <Rocket className="w-4 h-4 mr-2 animate-bounce" />
@@ -126,7 +126,7 @@ export function Navbar() {
                                 trackEvent("navigation_click", {
                                     link_name: link.label,
                                     link_path: link.href,
-                                    location: "navbar_mobile",
+                                    source: "navbar_mobile",
                                 })
                                 setMobileMenuOpen(false)
                             }}
@@ -146,7 +146,7 @@ export function Navbar() {
                                     trackEvent("navigation_click", {
                                         link_name: "Arcade",
                                         link_path: "/minigames",
-                                        location: "navbar_mobile",
+                                        source: "navbar_mobile",
                                     })
                                     setMobileMenuOpen(false)
                                 }}

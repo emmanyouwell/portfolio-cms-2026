@@ -51,7 +51,7 @@ export function Footer() {
                                         aria-label={social.label}
                                         onClick={() => trackEvent('outbound_link', {
                                             link_name: social.label,
-                                            location: "footer"
+                                            source: "footer"
                                         })}
                                         className="p-3 rounded-full bg-background border border-border text-muted-foreground transition-all duration-300 hover:text-primary hover:border-primary hover:shadow-lg hover:shadow-primary/20 hover:-translate-y-1 active:scale-90"
                                     >
@@ -73,7 +73,7 @@ export function Footer() {
                                         onClick={() => trackEvent("footer_link_click", {
                                             link_name: link.label,
                                             link_path: link.href,
-                                            location: "footer",
+                                            source: "footer",
                                         })}
                                         className="text-muted-foreground hover:text-primary transition-colors flex items-center group"
                                     >
@@ -92,7 +92,7 @@ export function Footer() {
                             <li>
                                 <a href="mailto:emingala02@gmail.com" className="text-muted-foreground hover:text-primary transition-colors" onClick={() => trackEvent('outbound_click', {
                                     link_name: 'email',
-                                    location: 'footer'
+                                    source: 'footer'
                                 })}>
                                     emingala02@gmail.com
                                 </a>

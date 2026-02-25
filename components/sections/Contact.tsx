@@ -56,7 +56,7 @@ export function Contact() {
             }
             trackEvent('form_submit', {
                 form_name: 'contact_form',
-                location: 'contact_section'
+                source: 'contact_section'
             })
             form.reset()
             toast.success("Message sent successfully!", {
@@ -110,8 +110,8 @@ export function Contact() {
                                     <h3 className="font-semibold text-foreground">Email Me</h3>
                                     <a href="mailto:emingala02@gmail.com" className="text-muted-foreground hover:text-primary transition-colors" onClick={() => trackEvent('outbound_click', {
                                         link_name: 'email',
-                                        location: 'contact_section',
-                                        type: 'contact'
+                                        source: 'contact_section',
+                                        form_type: 'contact'
                                     })}>
                                         emingala02@gmail.com
                                     </a>
@@ -126,8 +126,8 @@ export function Contact() {
                                     <h3 className="font-semibold text-foreground">Facebook</h3>
                                     <a href="https://www.facebook.com/emmanueellll" target="_blank" rel="noopener noreferrer" onClick={() => trackEvent('outbound_click', {
                                         link_name: 'facebook',
-                                        location: 'contact_section',
-                                        type: 'contact'
+                                        source: 'contact_section',
+                                        form_type: 'contact'
                                     })} className="text-muted-foreground hover:text-primary transition-colors">
                                         Emmanuel Mingala
                                     </a>

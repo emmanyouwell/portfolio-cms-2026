@@ -19,7 +19,7 @@ export function MiniGames() {
                     {/* RPS Game Card */}
                     <Link
                         href="/minigames/rock-paper-scissors"
-                        onClick={() => trackEvent('minigame_click', { game_name: 'Rock Paper Scissors', source: 'homepage' })}
+                        onClick={() => trackEvent('minigame_click', { game_name: 'rock_paper_scissors', source: 'homepage' })}
                         className="group relative flex flex-col md:flex-row items-center gap-6 p-6 rounded-2xl border bg-card hover:bg-muted/50 transition-all duration-300 hover:shadow-md hover:-translate-y-1 overflow-hidden"
                     >
                         <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -43,7 +43,7 @@ export function MiniGames() {
                     {/* Tic Tac Toe Card */}
                     <Link
                         href="/minigames/tic-tac-toe"
-                        onClick={() => trackEvent('minigame_click', { game_name: 'Tic Tac Toe', source: 'homepage' })}
+                        onClick={() => trackEvent('minigame_click', { game_name: 'tic_tac_toe', source: 'homepage' })}
                         className="group relative flex flex-col md:flex-row items-center gap-6 p-6 rounded-2xl border bg-card hover:bg-muted/50 transition-all duration-300 hover:shadow-md hover:-translate-y-1 overflow-hidden"
                     >
                         <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -67,7 +67,7 @@ export function MiniGames() {
                     {/* Wordle Card */}
                     <Link
                         href="/minigames/wordle"
-                        onClick={() => trackEvent('minigame_click', { game_name: 'Wordle', source: 'homepage' })}
+                        onClick={() => trackEvent('minigame_click', { game_name: 'wordle', source: 'homepage' })}
                         className="group relative flex flex-col md:flex-row items-center gap-6 p-6 rounded-2xl border bg-card hover:bg-muted/50 transition-all duration-300 hover:shadow-md hover:-translate-y-1 overflow-hidden"
                     >
                         <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />

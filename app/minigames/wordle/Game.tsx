@@ -46,6 +46,7 @@ export function WordleGame() {
     const [message, setMessage] = useState('');
 
     const startNewGame = useCallback(async () => {
+        trackEvent("game_interaction", { interaction_type: "play_again", game_name: "wordle", source: "wordle_page" })
         setIsLoading(true);
         try {
             let nextWord = '';

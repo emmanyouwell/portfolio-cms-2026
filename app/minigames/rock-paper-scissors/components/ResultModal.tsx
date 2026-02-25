@@ -1,6 +1,7 @@
 import React from 'react';
 import { Choice, GameResult, CHOICE_EMOJIS } from '../logic';
 import '../styles.css';
+import { trackEvent } from '@/lib/gtag';
 
 interface ResultModalProps {
     result: GameResult;
@@ -11,7 +12,7 @@ interface ResultModalProps {
 
 export function ResultModal({ result, playerChoice, computerChoice, onReset }: ResultModalProps) {
     if (!result || !playerChoice || !computerChoice) return <div className="rps-result-area" />;
-
+    trackEvent("game_interaction", { interaction_type: "play_again", game_name: "rock_paper_scissors", source: "rock_paper_scissors_page" });
     const getResultText = () => {
         switch (result) {
             case 'win': return { text: 'You Win!', className: 'rps-win' };
