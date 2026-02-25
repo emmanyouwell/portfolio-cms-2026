@@ -16,7 +16,7 @@ export default async function Home() {
     }
   }
 
-  const projectsQuery = {
+  const featuredProjectsQuery = {
     params: {
       populate: '*',
       sort: ['dateCreated:desc'],
@@ -25,6 +25,11 @@ export default async function Home() {
           $eq: true,
         },
       },
+    }
+  }
+  const allProjectsQuery = {
+    params: {
+      populate: "*"
     }
   }
   const certificateQuery = {
@@ -39,15 +44,16 @@ export default async function Home() {
       }
     }
   }
-  const [projects, certificates, skills, testimonials, blogs] = await Promise.all([
-    fetchAPI('/projects', projectsQuery),
+  const [featuredProjects, allProjects, certificates, skills, testimonials, blogs] = await Promise.all([
+    fetchAPI('/projects', featuredProjectsQuery),
+    fetchAPI('/projects', allProjectsQuery),
     fetchAPI('/certificates', certificateQuery),
     fetchAPI('/skills', baseQuery),
     fetchAPI('/testimonials', baseQuery),
     fetchAPI('/blogs', baseQuery)
   ])
   const statsProps = {
-    projects: projects.data.length,
+    projects: allProjects.data.length,
     blogs: blogs.data.length,
     certificates: certificates.data.length,
     experience: "3+ years",
@@ -57,7 +63,7 @@ export default async function Home() {
       <Hero stats={statsProps} />
       {/* <About /> */}
       <Services skills={skills.data} />
-      <Projects projects={projects.data} />
+      <Projects projects={featuredProjects.data} />
       <Certificates certificates={certificates.data} />
       <BlogSection blogs={blogs.data} />
       <Testimonials testimonials={testimonials.data} />
