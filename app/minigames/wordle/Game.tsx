@@ -128,7 +128,7 @@ export function WordleGame() {
         } else if (/^[A-Z]$/.test(key) && currentGuess.length < 5) {
             setCurrentGuess(prev => prev + key);
         }
-    }, [currentGuess, gameStatus, submitGuess]);
+    }, [isLoading, currentGuess, gameStatus, submitGuess]);
 
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {

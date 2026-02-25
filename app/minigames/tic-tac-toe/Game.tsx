@@ -2,7 +2,7 @@
 
 import React, { useState, useCallback } from 'react';
 import confetti from 'canvas-confetti';
-import { Player, GameState, calculateWinner } from './logic';
+import { GameState, calculateWinner } from './logic';
 import { Board } from './components/Board';
 import { ScoreBoard } from './components/ScoreBoard';
 import './styles.css';
