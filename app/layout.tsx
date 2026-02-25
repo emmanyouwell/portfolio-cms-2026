@@ -17,7 +17,7 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title:
-    'Full-Stack Developer in the Philippines — Web Development by EmmanDev (Emmanuel Mingala)',
+    'EmmanDev | Full-Stack Developer',
   description:
     "I'm Emmanuel Mingala, the developer behind EmmanDev — a full-stack developer in the Philippines specializing in modern web development with React and Node.js. Explore my projects, read my blog, and connect for collaboration.",
   metadataBase: new URL('https://www.emmandev.site'),

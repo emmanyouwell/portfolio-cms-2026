@@ -13,7 +13,18 @@ export default async function Home() {
     params: {
       populate: '*'
     }
+  }
 
+  const projectsQuery = {
+    params: {
+      populate: '*',
+      sort: ['dateCreated:desc'],
+      filters: {
+        featured: {
+          $eq: true,
+        },
+      },
+    }
   }
   const certificateQuery = {
     params: {
@@ -28,7 +39,7 @@ export default async function Home() {
     }
   }
   const [projects, certificates, skills, testimonials, blogs] = await Promise.all([
-    fetchAPI('/projects', baseQuery),
+    fetchAPI('/projects', projectsQuery),
     fetchAPI('/certificates', certificateQuery),
     fetchAPI('/skills', baseQuery),
     fetchAPI('/testimonials', baseQuery),

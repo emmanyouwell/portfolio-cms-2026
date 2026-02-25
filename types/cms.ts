@@ -10,6 +10,9 @@ export interface Project {
     stackIcons: string
     category: string
     detailedDescription?: Array<{
+        value: string
+    }>
+    longDescription?: Array<{
         type: string
         children: Array<{ type: string; text: string }>
     }>
@@ -23,6 +26,7 @@ export interface Project {
     projectType?: string
     featured?: boolean
     visibility?: 'public' | 'private'
+    dateCreated?: string
     metadata?: {
         year?: number
         role?: string
