@@ -29,6 +29,21 @@ export default function WordlePage() {
                 <div className="p-2 min-[400px]:p-4 md:p-8 rounded-2xl border bg-card text-card-foreground shadow-sm max-w-2xl mx-auto flex flex-col items-center w-full">
                     <WordleGame />
                 </div>
+                <div className="mt-8 text-center text-sm text-muted-foreground max-w-lg mx-auto">
+                    <p>
+                        * Note: Words for categories other than &quot;Default&quot; are fetched via the{' '}
+                        <a
+                            href="https://random-words-api.kushcreates.com/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-primary hover:underline underline-offset-4"
+                        >
+                            Random Words API
+                        </a>
+                        .
+                    </p>
+                </div>
+
             </div>
         </main>
     );
