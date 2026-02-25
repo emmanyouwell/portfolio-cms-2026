@@ -6,6 +6,7 @@ import { Badge } from '@/components/ui/badge'
 import { Card, CardHeader, CardContent, CardTitle, CardDescription, CardFooter } from '@/components/ui/card'
 import { Project } from '@/types/cms'
 import Image from 'next/image'
+import { trackEvent } from '@/lib/gtag'
 
 interface ProjectCardProps {
     project: Project
@@ -35,7 +36,8 @@ export function ProjectCard({ project }: ProjectCardProps) {
                     {/* Overlay on hover */}
                     <div className="absolute inset-0 bg-black/40 backdrop-blur-[2px] opacity-0 transition-opacity duration-300 group-hover:opacity-100 flex items-center justify-center gap-4 z-20">
                         <Link
-                            href="/projects"
+                            href={`/projects`}
+                            onClick={() => trackEvent('project_details_click', { project_name: project.title, source: 'project_card' })}
                             className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300"
                         >
                             <div className="flex px-4 py-2 text-sm font-medium items-center justify-center rounded-full bg-secondary text-secondary-foreground shadow-lg hover:scale-105 transition-transform">
@@ -48,7 +50,10 @@ export function ProjectCard({ project }: ProjectCardProps) {
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-75"
-                                onClick={(e) => e.stopPropagation()}
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    trackEvent('project_github_click', { project_name: project.title, url: project.link?.github });
+                                }}
                             >
                                 <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white text-black shadow-lg hover:scale-110 transition-transform">
                                     <Github className="h-5 w-5" />
@@ -61,7 +66,10 @@ export function ProjectCard({ project }: ProjectCardProps) {
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-100"
-                                onClick={(e) => e.stopPropagation()}
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    trackEvent('project_demo_click', { project_name: project.title, url: project.link?.demo });
+                                }}
                             >
                                 <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg hover:scale-110 transition-transform">
                                     <ExternalLink className="h-5 w-5" />
@@ -81,13 +89,22 @@ export function ProjectCard({ project }: ProjectCardProps) {
 
             <CardContent className="p-6 flex-grow flex flex-col">
                 <div className="flex items-start justify-between gap-2 mb-3">
-                    <Link href="/projects" className="flex-1">
+                    <Link
+                        href={`/projects`}
+                        onClick={() => trackEvent('project_details_click', { project_name: project.title, source: 'project_card_title' })}
+                        className="flex-1"
+                    >
                         <CardTitle className="text-xl font-bold text-foreground group-hover:text-primary transition-colors inline-block hover:underline">
                             {project.title}
                         </CardTitle>
                     </Link>
                     {project.link?.demo && (
-                        <Link href={project.link.demo} target="_blank" rel="noopener noreferrer">
+                        <Link
+                            href={project.link.demo}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={() => trackEvent('project_demo_click', { project_name: project.title, url: project.link?.demo, source: 'project_card_arrow' })}
+                        >
                             <ArrowUpRight className="h-5 w-5 text-muted-foreground opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 hover:text-primary" />
                         </Link>
                     )}

@@ -10,6 +10,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
+import { trackEvent } from '@/lib/gtag'
 
 interface ProjectsLayoutProps {
     initialProjects: Project[]
@@ -65,6 +66,7 @@ export function ProjectsLayout({ initialProjects }: ProjectsLayoutProps) {
                         <div
                             key={project.id}
                             onClick={() => {
+                                trackEvent('project_list_select', { project_name: project.title, source: 'projects_layout_left_panel' })
                                 setSelectedProject(project)
                                 if (isMobile) {
                                     window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -128,14 +130,24 @@ export function ProjectsLayout({ initialProjects }: ProjectsLayoutProps) {
                                 <div className="flex gap-2">
                                     {selectedProject.link?.github && (
                                         <Button variant="outline" size="icon" asChild>
-                                            <Link href={selectedProject.link.github} target="_blank" rel="noopener noreferrer">
+                                            <Link
+                                                href={selectedProject.link.github}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                onClick={() => trackEvent('project_github_click', { project_name: selectedProject.title, url: selectedProject.link!.github, source: 'projects_layout_details' })}
+                                            >
                                                 <Github className="w-4 h-4" />
                                             </Link>
                                         </Button>
                                     )}
                                     {selectedProject.link?.demo && (
                                         <Button size="icon" asChild>
-                                            <Link href={selectedProject.link.demo} target="_blank" rel="noopener noreferrer">
+                                            <Link
+                                                href={selectedProject.link.demo}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                onClick={() => trackEvent('project_demo_click', { project_name: selectedProject.title, url: selectedProject.link!.demo, source: 'projects_layout_details' })}
+                                            >
                                                 <ExternalLink className="w-4 h-4" />
                                             </Link>
                                         </Button>
@@ -188,6 +200,7 @@ export function ProjectsLayout({ initialProjects }: ProjectsLayoutProps) {
                     {/* Rock Paper Scissors Card */}
                     <Link
                         href="/minigames/rock-paper-scissors"
+                        onClick={() => trackEvent('minigame_click', { game_name: 'Rock Paper Scissors', source: 'projects_layout_right_panel' })}
                         className="group flex flex-col gap-3 p-4 rounded-xl border bg-background hover:bg-muted/50 transition-all duration-300 hover:shadow-sm hover:border-primary/30"
                     >
                         <div className="flex items-center gap-3">
@@ -204,6 +217,7 @@ export function ProjectsLayout({ initialProjects }: ProjectsLayoutProps) {
                     {/* Tic Tac Toe Card */}
                     <Link
                         href="/minigames/tic-tac-toe"
+                        onClick={() => trackEvent('minigame_click', { game_name: 'Tic Tac Toe', source: 'projects_layout_right_panel' })}
                         className="group flex flex-col gap-3 p-4 rounded-xl border bg-background hover:bg-muted/50 transition-all duration-300 hover:shadow-sm hover:border-primary/30"
                     >
                         <div className="flex items-center gap-3">

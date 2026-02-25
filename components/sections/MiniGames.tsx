@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import { trackEvent } from '@/lib/gtag';
 
 export function MiniGames() {
     return (
@@ -16,6 +17,7 @@ export function MiniGames() {
                     {/* RPS Game Card */}
                     <Link
                         href="/minigames/rock-paper-scissors"
+                        onClick={() => trackEvent('minigame_click', { game_name: 'Rock Paper Scissors', source: 'homepage' })}
                         className="group relative flex flex-col md:flex-row items-center gap-6 p-6 rounded-2xl border bg-card hover:bg-muted/50 transition-all duration-300 hover:shadow-md hover:-translate-y-1 overflow-hidden"
                     >
                         <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -39,6 +41,7 @@ export function MiniGames() {
                     {/* Tic Tac Toe Card */}
                     <Link
                         href="/minigames/tic-tac-toe"
+                        onClick={() => trackEvent('minigame_click', { game_name: 'Tic Tac Toe', source: 'homepage' })}
                         className="group relative flex flex-col md:flex-row items-center gap-6 p-6 rounded-2xl border bg-card hover:bg-muted/50 transition-all duration-300 hover:shadow-md hover:-translate-y-1 overflow-hidden"
                     >
                         <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -63,6 +66,7 @@ export function MiniGames() {
                 <div className="mt-12 text-center">
                     <Link
                         href="/minigames"
+                        onClick={() => trackEvent('arcade_view_all_click', { source: 'homepage' })}
                         className="inline-flex items-center text-sm font-medium text-muted-foreground hover:text-primary underline underline-offset-4 decoration-muted-foreground/30 hover:decoration-primary transition-colors"
                     >
                         View all arcade games <svg className="ml-1 h-3 w-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6" /></svg>

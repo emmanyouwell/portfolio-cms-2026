@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import { trackEvent } from '@/lib/gtag';
 
 export const metadata = {
     title: 'Mini-Games | Emmanuel\'s Portfolio',
@@ -19,6 +20,7 @@ export default function MiniGamesPage() {
                     {/* Rock Paper Scissors Card */}
                     <Link
                         href="/minigames/rock-paper-scissors"
+                        onClick={() => trackEvent('minigame_click', { game_name: 'Rock Paper Scissors', source: 'arcade_page' })}
                         className="group relative flex items-center gap-6 p-6 rounded-2xl border bg-card hover:bg-muted/50 transition-all duration-300 hover:shadow-md hover:-translate-y-1 overflow-hidden"
                     >
                         <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -42,6 +44,7 @@ export default function MiniGamesPage() {
                     {/* Tic Tac Toe Card */}
                     <Link
                         href="/minigames/tic-tac-toe"
+                        onClick={() => trackEvent('minigame_click', { game_name: 'Tic Tac Toe', source: 'arcade_page' })}
                         className="group relative flex items-center gap-6 p-6 rounded-2xl border bg-card hover:bg-muted/50 transition-all duration-300 hover:shadow-md hover:-translate-y-1 overflow-hidden"
                     >
                         <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
