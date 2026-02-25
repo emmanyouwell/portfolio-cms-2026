@@ -49,7 +49,7 @@ export function Navbar() {
                 </Link>
 
                 {/* Desktop Navigation */}
-                <div className="hidden md:flex md:items-center md:space-x-8">
+                <div className="hidden lg:flex md:items-center md:space-x-8">
                     {navLinks.map((link) => (
                         <Link
                             key={link.href}
@@ -67,7 +67,7 @@ export function Navbar() {
                 </div>
 
                 {/* CTA Button & Theme Toggle (Desktop) */}
-                <div className="hidden md:flex items-center gap-4">
+                <div className="hidden lg:flex items-center gap-4">
                     <ThemeToggle />
                     <Button
                         size={scrolled ? "sm" : "default"}
@@ -93,7 +93,7 @@ export function Navbar() {
                 </div>
 
                 {/* Mobile Menu Button */}
-                <div className="flex items-center gap-2 md:hidden">
+                <div className="flex items-center gap-2 lg:hidden">
                     <ThemeToggle />
                     <Button
                         variant="ghost"
@@ -112,7 +112,7 @@ export function Navbar() {
 
                 {/* Mobile Menu Dropdown */}
                 <div
-                    className={`absolute top-full left-0 right-0 mt-4 p-4 mx-4 rounded-2xl bg-background/95 backdrop-blur-xl border border-border shadow-xl md:hidden flex flex-col space-y-4 transition-all duration-300 origin-top transform ${mobileMenuOpen
+                    className={`absolute top-full left-0 right-0 mt-4 p-4 mx-4 rounded-2xl bg-background/95 backdrop-blur-xl border border-border shadow-xl lg:hidden flex flex-col space-y-4 transition-all duration-300 origin-top transform ${mobileMenuOpen
                         ? 'opacity-100 scale-100 translate-y-0 pointer-events-auto'
                         : 'opacity-0 scale-95 -translate-y-4 pointer-events-none'
                         }`}

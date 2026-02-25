@@ -35,7 +35,7 @@ export function Hero({ stats }: HeroProps) {
 
 
                             {/* Image Container with Mobile Border */}
-                            <div className="relative z-10 w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 mx-auto">
+                            <div className="hidden lg:block relative z-10 w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 mx-auto">
 
                                 <div className="w-full h-full rounded-full overflow-hidden border-4 border-background/20 shadow-2xl relative">
                                     <Image
@@ -53,9 +53,24 @@ export function Hero({ stats }: HeroProps) {
 
                     {/* Content (Left/Bottom) */}
                     <div className="w-full lg:w-1/2 space-y-8 text-center lg:text-left">
-                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium">
-                            <Sparkles className="w-4 h-4" />
-                            <span>Available for new opportunities</span>
+                        <div className="flex flex-col items-center lg:items-start gap-6 lg:gap-0">
+                            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium">
+                                <Sparkles className="w-4 h-4" />
+                                <span>Available for new opportunities</span>
+                            </div>
+
+                            {/* Mobile and Tablet Avatar */}
+                            <div className="lg:hidden relative z-10 w-48 h-48 sm:w-64 sm:h-64 md:w-72 md:h-72 mx-auto mt-6 p-2 rounded-3xl bg-gradient-to-tr from-primary/20 to-transparent border border-primary/20 shadow-xl">
+                                <div className="w-full h-full rounded-2xl overflow-hidden relative">
+                                    <Image
+                                        src="/images/professional/toga.jpg"
+                                        alt="Emmanuel Mingala"
+                                        fill
+                                        className="object-cover"
+                                        priority
+                                    />
+                                </div>
+                            </div>
                         </div>
 
                         <h1 className="text-4xl lg:text-7xl font-bold tracking-tight leading-[1.1]">
