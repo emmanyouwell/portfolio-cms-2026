@@ -7,6 +7,7 @@ import { Testimonials } from "@/components/sections/Testimonials";
 
 import { fetchAPI } from "@/lib/fetch-api";
 import { Contact } from "@/components/sections/Contact";
+import { MiniGames } from "@/components/sections/MiniGames";
 
 export default async function Home() {
   const baseQuery = {
@@ -60,6 +61,7 @@ export default async function Home() {
       <Certificates certificates={certificates.data} />
       <BlogSection blogs={blogs.data} />
       <Testimonials testimonials={testimonials.data} />
+      <MiniGames />
       <Contact />
     </main>
   );

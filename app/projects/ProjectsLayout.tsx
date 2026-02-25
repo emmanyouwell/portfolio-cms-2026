@@ -176,13 +176,44 @@ export function ProjectsLayout({ initialProjects }: ProjectsLayoutProps) {
                 )}
             </Card>
 
-            {/* Right Panel: Placeholder */}
-            <Card className="order-3 lg:order-none lg:col-span-3 flex flex-col h-auto lg:h-full border-dashed border-2 bg-transparent">
-                <div className="flex-1 flex flex-col items-center justify-center p-8 text-center text-muted-foreground opacity-50">
-                    <LayoutTemplate className="w-10 h-10 mb-4" />
-                    <p className="font-medium text-sm">Empty Placeholder Component</p>
-                    <p className="text-xs mt-2">Reserved for future features or additional context.</p>
-                </div>
+            {/* Right Panel: Mini-Games */}
+            <Card className="order-3 lg:order-none lg:col-span-3 flex flex-col h-auto lg:h-full overflow-hidden border-border/50 bg-card/60 backdrop-blur-md">
+                <CardHeader className="py-4 px-6 border-b flex flex-row items-center justify-between space-y-0">
+                    <CardTitle className="text-lg">Mini-Games</CardTitle>
+                    <Button variant="ghost" size="sm" asChild className="text-xs h-8 px-2 -mr-2">
+                        <Link href="/minigames">Arcade</Link>
+                    </Button>
+                </CardHeader>
+                <CardContent className="flex-1 overflow-y-auto p-4 space-y-3 custom-scrollbar">
+                    {/* Rock Paper Scissors Card */}
+                    <Link
+                        href="/minigames/rock-paper-scissors"
+                        className="group flex flex-col gap-3 p-4 rounded-xl border bg-background hover:bg-muted/50 transition-all duration-300 hover:shadow-sm hover:border-primary/30"
+                    >
+                        <div className="flex items-center gap-3">
+                            <div className="flex-shrink-0 w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-xl group-hover:scale-110 transition-transform duration-300">
+                                ✌️
+                            </div>
+                            <h4 className="font-semibold text-sm group-hover:text-primary transition-colors">Rock Paper Scissors</h4>
+                        </div>
+                        <p className="text-xs text-muted-foreground line-clamp-2">
+                            Challenge the computer to a classic game. Can you get a winning streak?
+                        </p>
+                    </Link>
+
+                    {/* Coming Soon Card */}
+                    <div className="flex flex-col gap-3 p-4 rounded-xl border border-dashed bg-background/50 opacity-60">
+                        <div className="flex items-center gap-3">
+                            <div className="flex-shrink-0 w-10 h-10 bg-muted rounded-full flex items-center justify-center text-xl">
+                                🚧
+                            </div>
+                            <h4 className="font-semibold text-sm">More Games</h4>
+                        </div>
+                        <p className="text-xs text-muted-foreground line-clamp-2">
+                            Coming soon! Check back later for new interactive additions.
+                        </p>
+                    </div>
+                </CardContent>
             </Card>
         </div>
     )
