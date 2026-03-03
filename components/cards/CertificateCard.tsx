@@ -5,6 +5,15 @@ import Link from 'next/link'
 import { ExternalLink, Calendar } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
+import {
+    Dialog,
+    DialogContent,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+    DialogDescription,
+} from '@/components/ui/dialog'
 import { Certificate } from '@/types/cms'
 import Image from 'next/image'
 
@@ -82,19 +91,75 @@ export function CertificateCard({ certificate }: CertificateCardProps) {
     )
 
     return (
-        <div className="h-full hover:scale-[1.02] transition-transform duration-300">
-            {certificate.href ? (
-                <Link
-                    href={certificate.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block h-full"
-                >
+        <Dialog>
+            <DialogTrigger asChild>
+                <div className="h-full cursor-pointer hover:scale-[1.02] transition-transform duration-300">
                     {content}
-                </Link>
-            ) : (
-                content
-            )}
-        </div>
+                </div>
+            </DialogTrigger>
+            <DialogContent className="max-w-4xl w-[95vw] p-0 overflow-hidden bg-background border-muted">
+                <DialogHeader className="p-6 pb-2 border-b">
+                    <DialogTitle className="text-xl md:text-2xl font-bold pr-6">
+                        {certificate.title}
+                    </DialogTitle>
+                    <DialogDescription asChild>
+                        <div className="flex flex-wrap items-center gap-x-4 gap-y-2 mt-2">
+                            <span className="flex items-center gap-2 font-medium text-foreground">
+                                {certificate.issuer.image.url ? (
+                                    <Image src={certificate.issuer.image.url} alt={certificate.issuer.name} width={20} height={20} className="object-cover rounded-full bg-muted" />
+                                ) : (
+                                    <span className="flex h-5 w-5 items-center justify-center rounded-full bg-muted text-[10px] font-bold text-primary">
+                                        {certificate.issuer.name.substring(0, 2).toUpperCase()}
+                                    </span>
+                                )}
+                                {certificate.issuer.name}
+                            </span>
+                            <span className="flex items-center gap-2 text-sm text-muted-foreground">
+                                <Calendar className="h-4 w-4" />
+                                {new Date(certificate.dateIssued).toLocaleDateString('en-US', {
+                                    year: 'numeric',
+                                    month: 'long',
+                                })}
+                            </span>
+                            <Badge variant="secondary" className="ml-auto">{certificate.category}</Badge>
+                        </div>
+                    </DialogDescription>
+                </DialogHeader>
+
+                <div className="relative w-full aspect-[4/3] md:aspect-[16/10] bg-muted/30 p-2 md:p-6 flex items-center justify-center">
+                    {certificate.image.url ? (
+                        <div className="relative w-full h-full">
+                            <Image
+                                src={certificate.image.url}
+                                alt={certificate.title}
+                                fill
+                                className="object-contain"
+                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 75vw, 60vw"
+                            />
+                        </div>
+                    ) : (
+                        <div className="flex flex-col items-center justify-center text-center text-muted-foreground">
+                            <p className="font-medium">Image Not Available</p>
+                        </div>
+                    )}
+                </div>
+
+                {certificate.href && (
+                    <div className="p-4 md:p-6 md:pt-4 flex justify-end">
+                        <Button asChild>
+                            <Link
+                                href={certificate.href}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="gap-2 w-full md:w-auto"
+                            >
+                                <ExternalLink className="h-4 w-4" />
+                                View Original Credential
+                            </Link>
+                        </Button>
+                    </div>
+                )}
+            </DialogContent>
+        </Dialog>
     )
 }
