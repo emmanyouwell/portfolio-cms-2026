@@ -92,7 +92,7 @@ export function Contact() {
         <section id="contact" className="relative bg-background pt-32 pb-24 overflow-hidden">
             {/* Static Image Collage Backdrop */}
             <Image
-                src="/images/projects/collage.png"
+                src="/images/projects/collage-2.png"
                 alt="Projects Collage"
                 fill
                 className="object-cover opacity-[0.20] dark:opacity-[0.10] pointer-events-none z-0 mix-blend-screen dark:mix-blend-lighten"
@@ -100,7 +100,7 @@ export function Contact() {
 
             {/* Top Divider */}
             <div className="absolute top-0 w-full transform -translate-y-1 z-10">
-                <CurveDivider className="text-background" fill="fill-muted/20" />
+                <CurveDivider className="text-muted/30" fill="fill-muted/30" />
             </div>
 
             <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
