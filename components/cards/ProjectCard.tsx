@@ -36,7 +36,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
                     {/* Overlay on hover */}
                     <div className="absolute inset-0 bg-black/40 backdrop-blur-[2px] opacity-0 transition-opacity duration-300 group-hover:opacity-100 flex items-center justify-center gap-4 z-20">
                         <Link
-                            href={`/projects`}
+                            href={project.slug ? `/projects/${project.slug}` : `/projects`}
                             onClick={() => trackEvent('project_details_click', { project_name: project.title, source: 'project_card' })}
                             className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300"
                         >
@@ -90,7 +90,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
             <CardContent className="p-6 flex-grow flex flex-col">
                 <div className="flex items-start justify-between gap-2 mb-3">
                     <Link
-                        href={`/projects`}
+                        href={project.slug ? `/projects/${project.slug}` : `/projects`}
                         onClick={() => trackEvent('project_details_click', { project_name: project.title, source: 'project_card_title' })}
                         className="flex-1"
                     >

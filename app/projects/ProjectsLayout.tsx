@@ -1,6 +1,7 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useState, useMemo } from "react"
+import { useParams, useRouter } from "next/navigation"
 import Image from "next/image"
 import Link from "next/link"
 import { ExternalLink, Github, LayoutTemplate } from "lucide-react"
@@ -17,7 +18,19 @@ interface ProjectsLayoutProps {
 }
 
 export function ProjectsLayout({ initialProjects }: ProjectsLayoutProps) {
-    const [selectedProject, setSelectedProject] = useState<Project | null>(initialProjects[0] || null)
+    const params = useParams()
+    const router = useRouter()
+
+    const slugArray = params?.slug as string[] | undefined
+    const currentSlug = slugArray ? slugArray[0] : null
+
+    const selectedProject = useMemo(() => {
+        if (currentSlug) {
+            return initialProjects.find(p => p.slug === currentSlug) || initialProjects[0] || null
+        }
+        return initialProjects[0] || null
+    }, [currentSlug, initialProjects])
+
     const [visibleCount, setVisibleCount] = useState(5)
     const [isMobile, setIsMobile] = useState(false)
 
@@ -55,152 +68,168 @@ export function ProjectsLayout({ initialProjects }: ProjectsLayoutProps) {
     }
 
     return (
-        <div className="flex flex-col lg:grid lg:grid-cols-12 gap-6 lg:h-[calc(100vh-12rem)] lg:min-h-[600px]">
-            {/* Left Panel: Project List */}
-            <Card className="order-2 lg:order-none lg:col-span-3 flex flex-col h-auto lg:h-full overflow-hidden border-border/50 bg-card/60 backdrop-blur-md">
-                <CardHeader className="py-4 px-6 border-b">
-                    <CardTitle className="text-lg">Projects</CardTitle>
-                </CardHeader>
-                <CardContent className="flex-1 overflow-y-auto p-4 space-y-3 custom-scrollbar">
-                    {displayedProjects.map((project) => (
-                        <div
-                            key={project.id}
-                            onClick={() => {
-                                trackEvent('project_list_select', { project_name: project.title, source: 'projects_layout_left_panel' })
-                                setSelectedProject(project)
-                                if (isMobile) {
-                                    window.scrollTo({ top: 0, behavior: 'smooth' })
-                                }
-                            }}
-                            className={cn(
-                                "cursor-pointer rounded-xl p-4 transition-all duration-200 border",
-                                selectedProject?.id === project.id
-                                    ? "bg-primary/10 border-primary/30 shadow-sm"
-                                    : "bg-background hover:bg-muted border-transparent hover:border-border"
-                            )}
-                        >
-                            <h3 className="font-semibold text-sm mb-1">{project.title}</h3>
-                            <p className="text-xs text-muted-foreground line-clamp-2">{project.shortDescription}</p>
-                        </div>
-                    ))}
-                    {isMobile && visibleCount < initialProjects.length && (
-                        <Button
-                            variant="outline"
-                            className="w-full mt-4"
-                            onClick={handleLoadMore}
-                        >
-                            View more ({initialProjects.length - visibleCount})
-                        </Button>
-                    )}
-                </CardContent>
-            </Card>
+        <div className="flex flex-col gap-6">
+            <div className="flex flex-col lg:grid lg:grid-cols-12 gap-6 lg:h-[calc(100vh-12rem)] lg:min-h-[600px]">
+                {/* Left Panel: Project List */}
+                <Card className="order-2 lg:order-none lg:col-span-3 flex flex-col h-auto lg:h-full overflow-hidden border-0 lg:border lg:border-border/50 bg-card/60 backdrop-blur-md">
+                    <CardHeader className="py-4 px-0 lg:px-6 lg:border-b lg:border-border/50">
+                        <CardTitle className="text-lg">Projects</CardTitle>
+                    </CardHeader>
+                    <CardContent className="flex-1 overflow-y-auto p-0 lg:p-4 space-y-3 custom-scrollbar">
+                        {displayedProjects.map((project) => (
+                            <div
+                                key={project.id}
+                                onClick={() => {
+                                    trackEvent('project_list_select', { project_name: project.title, source: 'projects_layout_left_panel' })
+                                    if (project.slug) {
+                                        router.push(`/projects/${project.slug}`, { scroll: isMobile })
+                                    } else {
+                                        router.push(`/projects`, { scroll: isMobile })
+                                    }
+                                }}
+                                className={cn(
+                                    "cursor-pointer rounded-xl p-4 transition-all duration-200 border",
+                                    selectedProject?.id === project.id
+                                        ? "bg-primary/10 border-primary/30 shadow-sm"
+                                        : "bg-background hover:bg-muted border-transparent hover:border-border"
+                                )}
+                            >
+                                <h3 className="font-semibold text-sm mb-1">{project.title}</h3>
+                                <p className="text-xs text-muted-foreground line-clamp-2">{project.shortDescription}</p>
+                            </div>
+                        ))}
+                        {isMobile && visibleCount < initialProjects.length && (
+                            <Button
+                                variant="outline"
+                                className="w-full mt-4"
+                                onClick={handleLoadMore}
+                            >
+                                View more ({initialProjects.length - visibleCount})
+                            </Button>
+                        )}
+                    </CardContent>
+                </Card>
 
-            {/* Middle Panel: Project Details */}
-            <Card className="order-1 lg:order-none lg:col-span-6 flex flex-col h-auto lg:h-full overflow-hidden border-border/50 bg-card/60 backdrop-blur-md">
-                {selectedProject ? (
-                    <CardContent className="flex-1 overflow-y-auto p-0 custom-scrollbar flex flex-col">
-                        <div className="relative w-full aspect-video bg-muted/30">
-                            {selectedProject.image?.url ? (
-                                <Image
-                                    src={selectedProject.image.url}
-                                    alt={selectedProject.title}
-                                    fill
-                                    className="object-cover"
-                                    priority
-                                />
-                            ) : (
-                                <div className="flex items-center justify-center w-full h-full text-muted-foreground">
-                                    No image available
-                                </div>
-                            )}
-                        </div>
-                        <div className="p-6 lg:p-8 flex-1">
-                            <div className="flex items-start justify-between gap-4 mb-4">
-                                <div>
-                                    <div className="flex flex-wrap items-center gap-2 mb-2">
-                                        <Badge variant="secondary">{selectedProject.category}</Badge>
-                                        {selectedProject.metadata?.year && (
-                                            <Badge variant="outline" className="text-muted-foreground">
-                                                {selectedProject.metadata.year}
-                                            </Badge>
+                {/* Middle Panel: Project Details */}
+                <Card className="order-1 lg:order-none lg:col-span-9 flex flex-col h-auto lg:h-full overflow-hidden border-0 lg:border lg:border-border/50 bg-card/60 backdrop-blur-md">
+                    {selectedProject ? (
+                        <CardContent className="flex-1 overflow-y-auto p-0 custom-scrollbar flex flex-col">
+                            {/* Title, Tech Stack, Project Type, Short Description, Links */}
+                            <div className="lg:p-8 lg:pb-4 flex-1">
+                                <div className="flex items-start justify-between gap-4 mb-4">
+                                    <div>
+                                        <div className="flex flex-wrap items-center gap-2 mb-2">
+                                            <Badge variant="secondary">{selectedProject.category}</Badge>
+                                            {selectedProject.metadata?.year && (
+                                                <Badge variant="outline" className="text-muted-foreground">
+                                                    {selectedProject.metadata.year}
+                                                </Badge>
+                                            )}
+                                        </div>
+                                        <h2 className="text-2xl md:text-3xl font-bold">{selectedProject.title}</h2>
+                                    </div>
+                                    <div className="flex gap-2">
+                                        {selectedProject.link?.github && (
+                                            <Button variant="outline" size="icon" asChild>
+                                                <Link
+                                                    href={selectedProject.link.github}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    onClick={() => trackEvent('project_github_click', { project_name: selectedProject.title, url: selectedProject.link!.github, source: 'projects_layout_details' })}
+                                                >
+                                                    <Github className="w-4 h-4" />
+                                                </Link>
+                                            </Button>
+                                        )}
+                                        {selectedProject.link?.demo && (
+                                            <Button size="icon" asChild>
+                                                <Link
+                                                    href={selectedProject.link.demo}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    onClick={() => trackEvent('project_demo_click', { project_name: selectedProject.title, url: selectedProject.link!.demo, source: 'projects_layout_details' })}
+                                                >
+                                                    <ExternalLink className="w-4 h-4" />
+                                                </Link>
+                                            </Button>
                                         )}
                                     </div>
-                                    <h2 className="text-2xl md:text-3xl font-bold">{selectedProject.title}</h2>
                                 </div>
-                                <div className="flex gap-2">
-                                    {selectedProject.link?.github && (
-                                        <Button variant="outline" size="icon" asChild>
-                                            <Link
-                                                href={selectedProject.link.github}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                onClick={() => trackEvent('project_github_click', { project_name: selectedProject.title, url: selectedProject.link!.github, source: 'projects_layout_details' })}
-                                            >
-                                                <Github className="w-4 h-4" />
-                                            </Link>
-                                        </Button>
-                                    )}
-                                    {selectedProject.link?.demo && (
-                                        <Button size="icon" asChild>
-                                            <Link
-                                                href={selectedProject.link.demo}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                onClick={() => trackEvent('project_demo_click', { project_name: selectedProject.title, url: selectedProject.link!.demo, source: 'projects_layout_details' })}
-                                            >
-                                                <ExternalLink className="w-4 h-4" />
-                                            </Link>
-                                        </Button>
-                                    )}
+
+                                <div className="flex flex-wrap gap-2 mb-6 pb-6 border-b border-border/50">
+                                    {selectedProject?.techStack?.map((tech, i) => (
+                                        <Badge key={i} variant="outline" className="bg-primary/5 border-primary/20">
+                                            {tech.value}
+                                        </Badge>
+                                    ))}
+                                </div>
+                                <div className="prose prose-sm md:prose-base dark:prose-invert max-w-none">
+                                    <p className="text-muted-foreground leading-relaxed"> {selectedProject?.shortDescription}</p>
                                 </div>
                             </div>
-
-                            <div className="flex flex-wrap gap-2 mb-6 pb-6 border-b border-border/50">
-                                {selectedProject?.techStack?.map((tech, i) => (
-                                    <Badge key={i} variant="outline" className="bg-primary/5 border-primary/20">
-                                        {tech.value}
-                                    </Badge>
-                                ))}
-                            </div>
-
-                            <div className="prose prose-sm md:prose-base dark:prose-invert max-w-none">
-                                {selectedProject.longDescription && selectedProject.longDescription.length > 0 ? (
-                                    renderRichText(selectedProject.longDescription)
-                                ) : selectedProject.detailedDescription && selectedProject.detailedDescription.length > 0 ? (
-                                    selectedProject.detailedDescription.map((item, index) => (
-                                        <p key={index} className="text-muted-foreground leading-relaxed mb-4">
-                                            {item.value}
-                                        </p>
-                                    ))
+                            {/* Image */}
+                            <div className="relative w-full aspect-video bg-muted/30">
+                                {selectedProject.image?.url ? (
+                                    <Image
+                                        src={selectedProject.image.url}
+                                        alt={selectedProject.title}
+                                        fill
+                                        className="object-cover"
+                                        priority
+                                    />
                                 ) : (
-                                    <p className="text-muted-foreground leading-relaxed mb-4">
-                                        {selectedProject.shortDescription}
-                                    </p>
+                                    <div className="flex items-center justify-center w-full h-full text-muted-foreground">
+                                        No image available
+                                    </div>
                                 )}
                             </div>
+                            {/* Detailed description */}
+                            <div className="pt-4 lg:p-8 flex-1">
+                                <div className="prose prose-sm md:prose-base dark:prose-invert max-w-none">
+                                    {selectedProject.longDescription && selectedProject.longDescription.length > 0 ? (
+                                        renderRichText(selectedProject.longDescription)
+                                    ) : selectedProject.detailedDescription && selectedProject.detailedDescription.length > 0 ? (
+                                        selectedProject.detailedDescription.map((item, index) => (
+                                            <p key={index} className="text-muted-foreground leading-relaxed mb-4">
+                                                {item.value}
+                                            </p>
+                                        ))
+                                    ) : (
+                                        <p className="text-muted-foreground leading-relaxed mb-4">
+                                            {selectedProject.shortDescription}
+                                        </p>
+                                    )}
+                                </div>
+                            </div>
+                        </CardContent>
+                    ) : (
+                        <div className="flex-1 flex flex-col items-center justify-center p-8 text-center text-muted-foreground">
+                            <LayoutTemplate className="w-12 h-12 mb-4 opacity-20" />
+                            <p>Select a project from the left panel to view details.</p>
                         </div>
-                    </CardContent>
-                ) : (
-                    <div className="flex-1 flex flex-col items-center justify-center p-8 text-center text-muted-foreground">
-                        <LayoutTemplate className="w-12 h-12 mb-4 opacity-20" />
-                        <p>Select a project from the left panel to view details.</p>
-                    </div>
-                )}
-            </Card>
+                    )}
+                </Card>
 
-            {/* Right Panel: Mini-Games */}
-            <Card className="order-3 lg:order-none lg:col-span-3 flex flex-col h-auto lg:h-full overflow-hidden border-border/50 bg-card/60 backdrop-blur-md">
-                <CardHeader className="py-4 px-6 border-b flex flex-row items-center justify-between space-y-0">
+                {/* Mobile Divider between Details and Project List */}
+                <div className="order-1 lg:hidden h-px w-full bg-border/50" />
+            </div>
+
+            {/* Mobile Divider between Project List and Mini-Games */}
+            <div className="lg:hidden h-px w-full bg-border/50" />
+
+            {/* Bottom Panel: Mini-Games */}
+            <Card className="flex flex-col overflow-hidden border-0 lg:border lg:border-border/50 bg-card/60 backdrop-blur-md">
+                <CardHeader className="py-4 px-0 lg:px-6 border-b lg:border-border/50 flex flex-row items-center justify-between space-y-0">
                     <CardTitle className="text-lg">Mini-Games</CardTitle>
                     <Button variant="ghost" size="sm" asChild className="text-xs h-8 px-2 -mr-2">
                         <Link href="/minigames">Arcade</Link>
                     </Button>
                 </CardHeader>
-                <CardContent className="flex-1 overflow-y-auto p-4 space-y-3 custom-scrollbar">
+                <CardContent className="p-0 pt-4 lg:p-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                     {/* Rock Paper Scissors Card */}
                     <Link
                         href="/minigames/rock-paper-scissors"
-                        onClick={() => trackEvent('minigame_click', { game_name: 'Rock Paper Scissors', source: 'projects_layout_right_panel' })}
+                        onClick={() => trackEvent('minigame_click', { game_name: 'Rock Paper Scissors', source: 'projects_layout_bottom_panel' })}
                         className="group flex flex-col gap-3 p-4 rounded-xl border bg-background hover:bg-muted/50 transition-all duration-300 hover:shadow-sm hover:border-primary/30"
                     >
                         <div className="flex items-center gap-3">
@@ -217,7 +246,7 @@ export function ProjectsLayout({ initialProjects }: ProjectsLayoutProps) {
                     {/* Tic Tac Toe Card */}
                     <Link
                         href="/minigames/tic-tac-toe"
-                        onClick={() => trackEvent('minigame_click', { game_name: 'Tic Tac Toe', source: 'projects_layout_right_panel' })}
+                        onClick={() => trackEvent('minigame_click', { game_name: 'Tic Tac Toe', source: 'projects_layout_bottom_panel' })}
                         className="group flex flex-col gap-3 p-4 rounded-xl border bg-background hover:bg-muted/50 transition-all duration-300 hover:shadow-sm hover:border-primary/30"
                     >
                         <div className="flex items-center gap-3">
@@ -234,7 +263,7 @@ export function ProjectsLayout({ initialProjects }: ProjectsLayoutProps) {
                     {/* Wordle Card */}
                     <Link
                         href="/minigames/wordle"
-                        onClick={() => trackEvent('minigame_click', { game_name: 'Wordle', source: 'projects_layout_right_panel' })}
+                        onClick={() => trackEvent('minigame_click', { game_name: 'Wordle', source: 'projects_layout_bottom_panel' })}
                         className="group flex flex-col gap-3 p-4 rounded-xl border bg-background hover:bg-muted/50 transition-all duration-300 hover:shadow-sm hover:border-primary/30"
                     >
                         <div className="flex items-center gap-3">

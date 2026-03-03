@@ -1,5 +1,5 @@
 import { fetchAPI } from "@/lib/fetch-api";
-import { ProjectsLayout } from "./ProjectsLayout";
+import { ProjectsLayout } from "../ProjectsLayout";
 
 export const metadata = {
     title: "Projects | My Portfolio",
