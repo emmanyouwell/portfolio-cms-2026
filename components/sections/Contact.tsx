@@ -13,12 +13,27 @@ import * as z from 'zod'
 import { useState } from 'react'
 import { toast } from "sonner"
 import { trackEvent } from '@/lib/gtag'
+import Image from 'next/image'
 
 const formSchema = z.object({
-    name: z.string().min(2, { message: "Name must be at least 2 characters." }),
-    email: z.string().email({ message: "Invalid email address." }),
-    facebook: z.string().optional(),
-    message: z.string().min(3, { message: "Message must be at least 3 characters." }),
+    name: z.string()
+        .min(2, { message: "Name must be at least 2 characters." })
+        .max(100, { message: "Name should not exceed 100 characters." }),
+    email: z.string()
+        .min(1, { message: "Email is required." })
+        .email({ message: "Invalid email address." })
+        .regex(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, { message: "Please enter a valid email address." }),
+    facebook: z.string()
+        .max(300, { message: "Facebook link too long" })
+        .optional()
+        .refine(
+            (val) => !val || /^(https?:\/\/)?(www\.)?(facebook\.com|fb\.com|m\.facebook\.com)\/.+$/.test(val),
+            { message: "Please enter a valid Facebook profile URL." }
+        ),
+    message: z.string()
+        .min(3, { message: "Message must be at least 3 characters." })
+        .max(2000, { message: "Message should not exceed 2,000 characters." }),
+    honeypot: z.string().optional(),
 })
 
 type FormData = z.infer<typeof formSchema>
@@ -35,6 +50,7 @@ export function Contact() {
             email: "",
             facebook: "",
             message: "",
+            honeypot: "",
         },
     })
 
@@ -74,8 +90,16 @@ export function Contact() {
 
     return (
         <section id="contact" className="relative bg-background pt-32 pb-24 overflow-hidden">
+            {/* Static Image Collage Backdrop */}
+            <Image
+                src="/images/projects/collage.png"
+                alt="Projects Collage"
+                fill
+                className="object-cover opacity-[0.20] dark:opacity-[0.10] pointer-events-none z-0 mix-blend-screen dark:mix-blend-lighten"
+            />
+
             {/* Top Divider */}
-            <div className="absolute top-0 w-full transform -translate-y-1">
+            <div className="absolute top-0 w-full transform -translate-y-1 z-10">
                 <CurveDivider className="text-background" fill="fill-muted/20" />
             </div>
 
@@ -193,11 +217,19 @@ export function Contact() {
                                         <FormItem>
                                             <FormLabel>Message</FormLabel>
                                             <FormControl>
-                                                <Textarea placeholder="Tell me about your project..." rows={5} {...field} className="bg-background/50 border-primary/20 focus:border-primary resize-none" />
+                                                <Textarea placeholder="Tell me about your project..." rows={5} {...field} maxLength={2000} className="bg-background/50 border-primary/20 focus:border-primary resize-none" />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>
                                     )}
+                                />
+
+                                <input
+                                    type="text"
+                                    {...form.register("honeypot")}
+                                    className="absolute left-[-9999px] opacity-0"
+                                    tabIndex={-1}
+                                    autoComplete="off"
                                 />
 
                                 <Button
